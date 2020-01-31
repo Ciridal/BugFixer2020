@@ -14,6 +14,12 @@ public class Enemy : MonoBehaviour
         player = FindObjectOfType<Player>();
     }
 
+    void Update()
+    {
+        if (hp <= 0)
+            Death();
+    }
+
     int TakeDamage(int dmg)
     {
         hp -= dmg;
@@ -23,5 +29,10 @@ public class Enemy : MonoBehaviour
     void DealDamage()
     {
         player.TakeDamage(damage);
+    }
+
+    void Death()
+    {
+        Destroy(gameObject);
     }
 }
