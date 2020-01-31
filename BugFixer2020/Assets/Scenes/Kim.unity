@@ -360,6 +360,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2012800300}
   - component: {fileID: 2012800299}
+  - component: {fileID: 2012800301}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -376,9 +377,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2012800298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63ffcf46dfc8e6941bc7eb252aa65665, type: 3}
+  m_Script: {fileID: 11500000, guid: 616219de7d706b04b9b913174501193f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridSprite: {fileID: 21300000, guid: 8e6fc40626e3c084086f5a0a03258a41, type: 3}
 --- !u!4 &2012800300
 Transform:
   m_ObjectHideFlags: 0
@@ -393,3 +395,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2012800301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012800298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d4519001f7466d46aee0c1118e9964b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
