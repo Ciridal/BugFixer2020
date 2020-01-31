@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+    public Sprite image;
     public float[,] Grid;
+    public int tileAmount = 10;
     int vertical, horizontal, columns, rows;
 
     void Start()
@@ -29,6 +31,7 @@ public class GridManager : MonoBehaviour
         GameObject tile = new GameObject("x: " + x + " y: " + y);
         tile.transform.position = new Vector3(x - (horizontal - 0.5f), y - (vertical - 0.5f));
         var sprite = tile.AddComponent<SpriteRenderer>();
+        sprite.sprite = image;
         sprite.color = new Color(value, value, value);
     }
 }
