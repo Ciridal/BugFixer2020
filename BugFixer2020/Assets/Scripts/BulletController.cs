@@ -11,15 +11,8 @@ public class BulletController : MonoBehaviour
     {
         gameObject.AddComponent<BoxCollider2D>();
         gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+        gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
         StartCoroutine(DeathDelay());
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnTriggerEnter2D(Collider2D col)

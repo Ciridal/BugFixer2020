@@ -7,17 +7,31 @@ public class Enemy : MonoBehaviour
     public int hp;
     public int damage;
     public float speed;
-    Player player;
+    GameObject player;
+    float dist;
+    float lastHit;
+    public int damageDelay;
 
     void Start()
     {
-        player = FindObjectOfType<Player>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
     {
         if (hp <= 0)
             Death();
+
+        if(player)
+        {
+            dist = Vector3.Distance(player.transform.position, transform.position);
+
+            if(dist < 1 && Time.time > lastHit + damageDelay)
+            {
+                DealDamage();
+                lastHit = Time.time;
+            }
+        }
     }
 
     public int TakeDamage(int dmg)
@@ -28,7 +42,9 @@ public class Enemy : MonoBehaviour
 
     void DealDamage()
     {
-        player.TakeDamage(damage);
+
+        //player.GetComponent<Player>().TakeDamage(damage);
+        Debug.Log("Monster hit player");
     }
 
     void Death()
