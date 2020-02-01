@@ -14,7 +14,7 @@ public class Pathfinding : MonoBehaviour
     {
         if (gameManager == null)
             gameManager = GameObject.FindGameObjectWithTag("GameManager");
-        grid = gameManager.GetComponent<Grid>();
+        grid = GameObject.FindObjectOfType<Grid>();
         //nodeArray = grid.nodes;
     }
 
@@ -28,21 +28,32 @@ public class Pathfinding : MonoBehaviour
         PathNode startNode = grid.GetNodePosition(startPos.x, startPos.y);
         PathNode targetNode = grid.GetNodePosition(targetPos.x, targetPos.y);
 
+        Debug.Log(startNode.tile);
+        Debug.Log(targetNode.tile);
+
         List<PathNode> openSet = new List<PathNode>();
         HashSet<PathNode> closedSet = new HashSet<PathNode>();
 
         openSet.Add(startNode);
+        //if(openSet.Count > 0)
+        //    openSet.ForEach(s => s.SetColour(Color.red));
 
         //Everything underneath this point is still WIP and probably doesn't work
         while (openSet.Count > 0)
         {
             PathNode node = openSet[0];
 
+            if (node == targetNode)
+            {
+                RetracePath(startNode, targetNode);
+                return;
+            }
+
             for (int i = 1; i < openSet.Count; i++)
             {
                 if (openSet[i].fCost() < node.fCost() || openSet[i].fCost() == node.fCost())
                 {
-                    if (openSet[i].hCost < node.hCost)
+                    //if (openSet[i].hCost < node.hCost)
                         node = openSet[i];
                 }
             }
@@ -50,11 +61,6 @@ public class Pathfinding : MonoBehaviour
             openSet.Remove(node);
             closedSet.Add(node);
 
-            if (node == targetNode)
-            {
-                RetracePath(startNode, targetNode);
-                return;
-            }
         }
 
     }

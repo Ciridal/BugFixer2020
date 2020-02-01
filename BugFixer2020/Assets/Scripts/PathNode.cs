@@ -22,4 +22,9 @@ public class PathNode
     {
         return gCost + hCost;
     }
+
+    public void SetColour(Color color)
+    {
+        tile.GetComponent<SpriteRenderer>().color = color;
+    }
 }

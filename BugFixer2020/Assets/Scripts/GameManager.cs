@@ -14,16 +14,15 @@ public class GameManager : MonoBehaviour
     public int randomFillPercent;
     public int smoothness = 5;
 
-    public Grid grid;
+    //public Grid grid;
     private System.Random seed = null;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         var seedObject = GameObject.FindObjectOfType<Randomizer>();
         if(seedObject != null)
             seed = seedObject.seed;
-        grid = new Grid(columns, rows, gridSprite, cellSize, randomFillPercent, seed, smoothness);
+        this.GetComponent<Grid>().CreateGrid(columns, rows, gridSprite, cellSize, randomFillPercent, seed, smoothness);
     }
 
     private void Update()

@@ -12,14 +12,11 @@ public class Grid : MonoBehaviour
     private float cellSize;
     private GameObject grid;
 
-    public GameObject[] tiles;
-
-    //public PathNode[] nodes;
+    public List<GameObject> tiles;
+    
     public List<PathNode> nodes;
 
-    //public System.Random seed;
-
-    public Grid(int width, int height, Sprite[] gridSprite, float cellSize, int randomFillPercent, System.Random seed, int smoothness)
+    public void CreateGrid(int width, int height, Sprite[] gridSprite, float cellSize, int randomFillPercent, System.Random seed, int smoothness)
     {
         this.width = width;
         this.height = height;
@@ -28,13 +25,14 @@ public class Grid : MonoBehaviour
         gridArray = new int[width, height];
         grid = new GameObject("Grid");
         nodes = new List<PathNode>();
+        tiles = new List<GameObject>();
 
         if (seed == null)
             seed = new System.Random(System.DateTime.Now.ToString().GetHashCode());
 
         for (int x = 0; x < gridArray.GetLength(0); x++)
         {
-            for (int y = 0; y<gridArray.GetLength(1); y++)
+            for (int y = 0; y < gridArray.GetLength(1); y++)
             {
                 //1 = wall, 0 = floor
                 if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
@@ -45,7 +43,7 @@ public class Grid : MonoBehaviour
                     gridArray[x, y] = (seed.Next(0, 100) < randomFillPercent) ? 1 : 0;
             }
         }
-        for(int i = 0; i < smoothness; i++)
+        for (int i = 0; i < smoothness; i++)
         {
             SmoothMap(smoothness, gridSprite);
         }
@@ -98,7 +96,8 @@ public class Grid : MonoBehaviour
         var sprite = tile.AddComponent<SpriteRenderer>();
         
         sprite.sprite = gridSprite;
-        
+
+        tiles.Add(tile);
         nodes.Add(new PathNode(tile, x, y, gridArray[x, y] == 0));
            
     }
@@ -111,12 +110,6 @@ public class Grid : MonoBehaviour
     public GameObject GetTileWithPosition(Vector3 position)
     {
         return tiles.FirstOrDefault(n => n.transform.position == position);
-    }
-
-    public GameObject GetTileWithCoordinates(int x, int y)
-    {
-        //Very unoptimized but who gives a duck
-        return tiles.FirstOrDefault(n => n.gameObject.name == x + "," + y);
     }
 
     public List<PathNode> GetNeighbours(PathNode node)
@@ -141,4 +134,23 @@ public class Grid : MonoBehaviour
         return nodes.FirstOrDefault(n => n.tile.transform.position == new Vector3(x, y));
     }
 
+    public PathNode GetNode(int x, int y)
+    {
+        return nodes.Find(n => n.gridX == x && n.gridY == y);
+    }
+
+    public GameObject GetTile(PathNode node)
+    {
+        return tiles.Find(t => t.gameObject.name == node.tile.name);
+    }
+
+    public GameObject GetTile(int x, int y)
+    {
+        return tiles.Find(t => t.gameObject.name == x + "," + y);
+    }
+
+    public GameObject GetTile(string name)
+    {
+        return tiles.Find(t => t.gameObject.name == name);
+    }
 }
