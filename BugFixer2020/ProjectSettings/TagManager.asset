@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Seed
+  - GameManager
   layers:
   - Default
   - TransparentFX

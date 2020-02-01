@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public int randomFillPercent;
     public int smoothness = 5;
 
-    private Grid grid;
+    public Grid grid;
     private System.Random seed = null;
 
     // Start is called before the first frame update

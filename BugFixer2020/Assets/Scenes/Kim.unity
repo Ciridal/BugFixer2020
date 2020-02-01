@@ -169,6 +169,7 @@ MonoBehaviour:
   rows: 10
   randomFillPercent: 0
   smoothness: 5
+  grid: {fileID: 0}
 --- !u!4 &2012800300
 Transform:
   m_ObjectHideFlags: 0
@@ -195,6 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d4519001f7466d46aee0c1118e9964b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tiles: []
 --- !u!1001 &1716500058498213425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -338,53 +340,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3821174329334479063, guid: b513874342fe0bf459190a416d87cf78,
         type: 3}
-      propertyPath: gridSprite.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3821174329334479063, guid: b513874342fe0bf459190a416d87cf78,
-        type: 3}
-      propertyPath: randomFillPercent
-      value: 47
-      objectReference: {fileID: 0}
-    - target: {fileID: 3821174329334479063, guid: b513874342fe0bf459190a416d87cf78,
-        type: 3}
-      propertyPath: smoothness
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3821174329334479063, guid: b513874342fe0bf459190a416d87cf78,
-        type: 3}
-      propertyPath: gridSprite.Array.data[1]
-      value: 
-      objectReference: {fileID: 21300000, guid: fc6c475f001b8fd4093fe123a05ec48b,
-        type: 3}
-    - target: {fileID: 3821174329334479063, guid: b513874342fe0bf459190a416d87cf78,
-        type: 3}
-      propertyPath: gridSprite.Array.data[2]
-      value: 
-      objectReference: {fileID: 21300000, guid: fc6c475f001b8fd4093fe123a05ec48b,
-        type: 3}
-    - target: {fileID: 3821174329334479063, guid: b513874342fe0bf459190a416d87cf78,
-        type: 3}
-      propertyPath: gridSprite.Array.data[3]
-      value: 
-      objectReference: {fileID: 21300000, guid: fc6c475f001b8fd4093fe123a05ec48b,
-        type: 3}
-    - target: {fileID: 3821174329334479063, guid: b513874342fe0bf459190a416d87cf78,
-        type: 3}
       propertyPath: columns
-      value: 100
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3821174329334479063, guid: b513874342fe0bf459190a416d87cf78,
         type: 3}
       propertyPath: rows
-      value: 100
+      value: 30
       objectReference: {fileID: 0}
-    - target: {fileID: 3821174329334479063, guid: b513874342fe0bf459190a416d87cf78,
-        type: 3}
-      propertyPath: gridSprite.Array.data[4]
-      value: 
-      objectReference: {fileID: 21300000, guid: 9f8c024ec0e1c8b4d9dec9e39f3509a0,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b513874342fe0bf459190a416d87cf78, type: 3}
 --- !u!1001 &6293789334370202729
