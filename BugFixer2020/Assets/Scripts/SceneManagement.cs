@@ -5,11 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
-    public Scene ActiveScene;
+    public int Level = 1;
+    public Randomizer seedObject;
+    public string LevelName;
 
     void start()
     {
-        ActiveScene = SceneManager.GetActiveScene();
+        if (seedObject == null)
+            seedObject = GameObject.FindObjectOfType<Randomizer>();
     }
 
     void Awake()
@@ -17,9 +20,23 @@ public class SceneManagement : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            NextLevel(LevelName);
+        }
+    }
+
     public void LoadScene(string name)
     {
         SceneManager.LoadScene(name);
-        ActiveScene = SceneManager.GetActiveScene();
+    }
+
+    public void NextLevel(string name)
+    {
+        Level++;
+        seedObject.IncreaseSeed(Level);
+        SceneManager.LoadScene(name);
     }
 }
