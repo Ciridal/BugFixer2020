@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class PathNode 
 {
-    public bool walkable;
-    public Vector3 worldPos;
+    public GameObject tile;
+    public int gCost, hCost;
+    public int gridX, gridY;
 
-    public PathNode(bool _walkable, Vector3 _worldPos)
+    public PathNode(GameObject tile, int x, int y)
     {
-        walkable = _walkable;
-        worldPos = _worldPos;
+        this.tile = tile;
 
+        gridX = x;
+        gridY = y;
+    }
+
+    public int fCost()
+    {
+        return gCost + hCost;
     }
 }

@@ -4,11 +4,15 @@ using System;
 using UnityEngine;
 
 public class Grid : MonoBehaviour
-{
+{  
+
     private int width;
     private int height;
     private int[,] gridArray;
     private float cellSize;
+
+    public PathNode[,] nodes;
+    public List<PathNode> path;
 
     //public System.Random seed;
 
@@ -57,7 +61,7 @@ public class Grid : MonoBehaviour
                 else if (neighbourWallTiles < smoothness - 1)
                     gridArray[x, y] = 0;
 
-                SpawnTile(x, y, gridSprite);
+                SpawnTile(x, y, gridSprite[gridArray[x, y]]);
             }
         }
     }
@@ -83,36 +87,39 @@ public class Grid : MonoBehaviour
         return wallCount;
     }
 
-    private void SpawnTile(int x, int y, Sprite[] gridSprite)
+
+    private void SpawnTile(int x, int y, Sprite gridSprite)
     {
         GameObject tile = new GameObject("x: " + x + "y: " + y);
         tile.transform.position = GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f;
         var sprite = tile.AddComponent<SpriteRenderer>();
+        
+        sprite.sprite = gridSprite;
 
-        sprite.sprite = GetSprite(x, y, gridSprite);
+       // nodes[x,y] = new PathNode(tile, x, y);
+           
     }
 
-    private Sprite GetSprite(int x, int y, Sprite[] gridSprite)
-    {
-        var spr = gridSprite[gridArray[x,y]];
-        if (gridArray[x, y] == 0)
-            spr = gridSprite[0];
-        else
-            spr = gridSprite[UnityEngine.Random.Range(gridArray[x, y], gridSprite.Length)];
-        return spr;
-    }
-
-    private Vector3 GetWorldPosition(int x, int y)
+    public Vector3 GetWorldPosition(int x, int y)
     {
         return new Vector3(x, y) * cellSize;
     }
+
+    public PathNode GetWorldPosition(float x, float y)
+    {
+        // return new Vector3(x, y) * cellSize;
+        
+
+        return nodes[(int)x, (int)y];
+    }
+
 
     //private void GetXY(Vector3 worldPos, out int x, out int y)
     //{
     //    x = Mathf.gridSpriteToInt(worldPos.x / cellSize);
     //    y = Mathf.gridSpriteToInt(worldPos.y / cellSize);
     //}
-    
+
     //public void SetValue(int x, int y, int value)
     //{
     //    if(x >= 0 && y >= 0 && x < width && y < height)
