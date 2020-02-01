@@ -1,18 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class Grid : MonoBehaviour
 {  
-
     private int width;
     private int height;
     private int[,] gridArray;
     private float cellSize;
+    private GameObject grid;
 
-    public PathNode[,] nodes;
-    public List<PathNode> path;
+    public GameObject[] tiles;
+
+    //public PathNode[] nodes;
+    public List<PathNode> nodes;
 
     //public System.Random seed;
 
@@ -23,11 +26,11 @@ public class Grid : MonoBehaviour
         this.cellSize = cellSize;
 
         gridArray = new int[width, height];
+        grid = new GameObject("Grid");
+        nodes = new List<PathNode>();
 
         if (seed == null)
             seed = new System.Random(System.DateTime.Now.ToString().GetHashCode());
-
-        //Debug.Log(width + " " + height);
 
         for (int x = 0; x < gridArray.GetLength(0); x++)
         {
@@ -46,7 +49,6 @@ public class Grid : MonoBehaviour
         {
             SmoothMap(smoothness, gridSprite);
         }
-        //SetValue(2, 1, 1);
     }
 
     private void SmoothMap(int smoothness, Sprite[] gridSprite)
@@ -90,14 +92,43 @@ public class Grid : MonoBehaviour
 
     private void SpawnTile(int x, int y, Sprite gridSprite)
     {
-        GameObject tile = new GameObject("x: " + x + "y: " + y);
+        GameObject tile = new GameObject(x + "," + y);
+        tile.transform.SetParent(grid.transform);
         tile.transform.position = GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f;
         var sprite = tile.AddComponent<SpriteRenderer>();
         
         sprite.sprite = gridSprite;
-
-       // nodes[x,y] = new PathNode(tile, x, y);
+        
+        nodes.Add(new PathNode(tile, x, y, gridArray[x, y] == 0));
            
+    }
+
+    public int[,] GetGridArray()
+    {
+        return gridArray;
+    }
+
+    public GameObject GetTileWithPosition(Vector3 position)
+    {
+        return tiles.FirstOrDefault(n => n.transform.position == position);
+    }
+
+    public GameObject GetTileWithCoordinates(int x, int y)
+    {
+        //Very unoptimized but who gives a duck
+        return tiles.FirstOrDefault(n => n.gameObject.name == x + "," + y);
+    }
+
+    public List<PathNode> GetNeighbours(PathNode node)
+    {
+        List<PathNode> neighbours = new List<PathNode>();
+
+        neighbours.Add(nodes.FirstOrDefault(n => n.gridX == node.gridX - 1 && n.gridY == node.gridY)); //LEFT
+        neighbours.Add(nodes.FirstOrDefault(n => n.gridX == node.gridX && n.gridY == node.gridY - 1)); //BOTTOM
+        neighbours.Add(nodes.FirstOrDefault(n => n.gridX == node.gridX + 1 && n.gridY == node.gridY)); //RIGHT
+        neighbours.Add(nodes.FirstOrDefault(n => n.gridX == node.gridX && n.gridY == node.gridY + 1)); //TOP
+
+        return neighbours;
     }
 
     public Vector3 GetWorldPosition(int x, int y)
@@ -105,37 +136,9 @@ public class Grid : MonoBehaviour
         return new Vector3(x, y) * cellSize;
     }
 
-    public PathNode GetWorldPosition(float x, float y)
+    public PathNode GetNodePosition(float x, float y)
     {
-        // return new Vector3(x, y) * cellSize;
-        
-
-        return nodes[(int)x, (int)y];
+        return nodes.FirstOrDefault(n => n.tile.transform.position == new Vector3(x, y));
     }
-
-
-    //private void GetXY(Vector3 worldPos, out int x, out int y)
-    //{
-    //    x = Mathf.gridSpriteToInt(worldPos.x / cellSize);
-    //    y = Mathf.gridSpriteToInt(worldPos.y / cellSize);
-    //}
-
-    //public void SetValue(int x, int y, int value)
-    //{
-    //    if(x >= 0 && y >= 0 && x < width && y < height)
-    //    {
-    //       gridArray[x, y] = value;
-    //       Debug.Log("x: " + x + " y: " + y + " value set to " + value);
-    //    }   
-    //}
-
-    //public void SetValue(Vector3 worldPosition, int value)
-    //{
-    //    int x, y;
-    //    //GetXY(worldPosition, out x, out y);
-    //    //SetValue(x, y, value);
-
-    //    //Debug.Log("x: " + x + " y: " + y + " value set to " + value);
-    //}
 
 }

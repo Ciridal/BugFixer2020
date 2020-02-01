@@ -6,30 +6,35 @@ public class Pathfinding : MonoBehaviour
 {
     private Grid grid;
     public Transform seeker, target;
+    public GameObject gameManager;
+
+    private GameObject[] nodeArray;
 
     private void Start()
     {
-        grid = GetComponent<Grid>();
+        if (gameManager == null)
+            gameManager = GameObject.FindGameObjectWithTag("GameManager");
+        grid = gameManager.GetComponent<Grid>();
+        //nodeArray = grid.nodes;
     }
 
     private void Update()
     {
         FindPath(seeker.position, target.position);
     }
-
-    
     
     private void FindPath(Vector3 startPos, Vector3 targetPos)
     {
-        PathNode startNode = grid.GetWorldPosition(startPos.x, startPos.y);
-        PathNode targetNode = grid.GetWorldPosition(targetPos.x, targetPos.y);
+        PathNode startNode = grid.GetNodePosition(startPos.x, startPos.y);
+        PathNode targetNode = grid.GetNodePosition(targetPos.x, targetPos.y);
 
         List<PathNode> openSet = new List<PathNode>();
         HashSet<PathNode> closedSet = new HashSet<PathNode>();
 
         openSet.Add(startNode);
 
-        while(openSet.Count > 0)
+        //Everything underneath this point is still WIP and probably doesn't work
+        while (openSet.Count > 0)
         {
             PathNode node = openSet[0];
 
@@ -45,7 +50,7 @@ public class Pathfinding : MonoBehaviour
             openSet.Remove(node);
             closedSet.Add(node);
 
-            if(node==targetNode)
+            if (node == targetNode)
             {
                 RetracePath(startNode, targetNode);
                 return;
@@ -67,7 +72,7 @@ public class Pathfinding : MonoBehaviour
 
         path.Reverse();
 
-        grid.path = path;
+        //grid.path = path;
     }
 
     int GetDistance(PathNode nodeA, PathNode nodeB)
