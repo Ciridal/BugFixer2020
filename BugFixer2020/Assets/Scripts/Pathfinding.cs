@@ -10,7 +10,7 @@ public class Pathfinding : MonoBehaviour
 
     private GameObject[] nodeArray;
 
-    private void Awake()
+    private void Start()
     {
         //grid = GetComponent<Grid>();
     }
