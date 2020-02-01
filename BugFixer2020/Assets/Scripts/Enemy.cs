@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
             Death();
     }
 
-    int TakeDamage(int dmg)
+    public int TakeDamage(int dmg)
     {
         hp -= dmg;
         return hp;
