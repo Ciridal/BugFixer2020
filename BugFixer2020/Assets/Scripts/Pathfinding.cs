@@ -7,7 +7,7 @@ public class Pathfinding : MonoBehaviour
     private Grid grid;
     public Transform seeker, target;
 
-    private void Awake()
+    private void Start()
     {
         grid = GetComponent<Grid>();
     }
