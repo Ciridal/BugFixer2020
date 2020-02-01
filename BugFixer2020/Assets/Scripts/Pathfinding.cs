@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Pathfinding : MonoBehaviour
 {
+    private Grid grid;
+
+    
+
     public Pathfinding(int width, int height)
     {
-        //ota ne gridistä
+        
     }
+    
 }
