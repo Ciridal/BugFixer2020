@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Randomizer : MonoBehaviour
 {
     public System.Random seed;
+    private string seedString;
 
     void Start()
     {
@@ -20,11 +21,19 @@ public class Randomizer : MonoBehaviour
     
     public void SetSeed(string input)
     {
+        seedString = input;
         seed = new System.Random(input.GetHashCode());
     }
 
     public void SetSeed(GameObject obj)
     {
-        seed = new System.Random(obj.GetComponent<Text>().text.GetHashCode());
+        seedString = obj.GetComponent<Text>().text;
+        seed = new System.Random(seedString.GetHashCode());
+        Debug.Log(seedString);
+    }
+
+    public void IncreaseSeed(int level)
+    {
+        seed = new System.Random(seedString.GetHashCode() + level);
     }
 }

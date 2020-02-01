@@ -57,7 +57,7 @@ public class Grid : MonoBehaviour
                 else if (neighbourWallTiles < smoothness - 1)
                     gridArray[x, y] = 0;
 
-                SpawnTile(x, y, gridSprite[gridArray[x, y]]);
+                SpawnTile(x, y, gridSprite);
             }
         }
     }
@@ -83,13 +83,23 @@ public class Grid : MonoBehaviour
         return wallCount;
     }
 
-    private void SpawnTile(int x, int y, Sprite gridSprite)
+    private void SpawnTile(int x, int y, Sprite[] gridSprite)
     {
         GameObject tile = new GameObject("x: " + x + "y: " + y);
         tile.transform.position = GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f;
         var sprite = tile.AddComponent<SpriteRenderer>();
-        
-        sprite.sprite = gridSprite;
+
+        sprite.sprite = GetSprite(x, y, gridSprite);
+    }
+
+    private Sprite GetSprite(int x, int y, Sprite[] gridSprite)
+    {
+        var spr = gridSprite[gridArray[x,y]];
+        if (gridArray[x, y] == 0)
+            spr = gridSprite[0];
+        else
+            spr = gridSprite[UnityEngine.Random.Range(gridArray[x, y], gridSprite.Length)];
+        return spr;
     }
 
     private Vector3 GetWorldPosition(int x, int y)
