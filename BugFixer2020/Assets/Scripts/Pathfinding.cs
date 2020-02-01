@@ -12,11 +12,6 @@ public class Pathfinding : MonoBehaviour
 
     private void Start()
     {
-        //grid = GetComponent<Grid>();
-    }
-
-    private void Start()
-    {
         if (gameManager == null)
             gameManager = GameObject.FindGameObjectWithTag("GameManager");
         grid = gameManager.GetComponent<Grid>();
