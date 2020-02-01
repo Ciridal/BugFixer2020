@@ -28,8 +28,8 @@ public class Pathfinding : MonoBehaviour
         PathNode startNode = grid.GetNodePosition(startPos.x, startPos.y);
         PathNode targetNode = grid.GetNodePosition(targetPos.x, targetPos.y);
 
-        Debug.Log(startNode.tile);
-        Debug.Log(targetNode.tile);
+        //Debug.Log(startNode.tile);
+        //Debug.Log(targetNode.tile);
 
         List<PathNode> openSet = new List<PathNode>();
         HashSet<PathNode> closedSet = new HashSet<PathNode>();

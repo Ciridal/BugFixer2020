@@ -22,7 +22,7 @@ public class Grid : MonoBehaviour
         this.height = height;
         this.cellSize = cellSize;
 
-        gridArray = new int[width, height];
+        gridArray = new int[width , height];
         grid = new GameObject("Grid");
         nodes = new List<PathNode>();
         tiles = new List<GameObject>();
@@ -43,10 +43,7 @@ public class Grid : MonoBehaviour
                     gridArray[x, y] = (seed.Next(0, 100) < randomFillPercent) ? 1 : 0;
             }
         }
-        for (int i = 0; i < smoothness; i++)
-        {
-            SmoothMap(smoothness, gridSprite);
-        }
+        SmoothMap(smoothness, gridSprite);
     }
 
     private void SmoothMap(int smoothness, Sprite[] gridSprite)
@@ -60,7 +57,7 @@ public class Grid : MonoBehaviour
                     gridArray[x, y] = 1;
                 else if (neighbourWallTiles < smoothness - 1)
                     gridArray[x, y] = 0;
-
+                
                 SpawnTile(x, y, gridSprite[gridArray[x, y]]);
             }
         }

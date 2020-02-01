@@ -19,7 +19,7 @@ public class wipnemy : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.F))
         {
             Debug.Log(gridManager.GetNode(0, 1).tile.name);
-            //gridManager.GetNode(0, 1).tile.GetComponent<SpriteRenderer>().color = Color.red;
+            gridManager.GetNode(0, 1).tile.GetComponent<SpriteRenderer>().color = Color.red;
         }
     }
 }
