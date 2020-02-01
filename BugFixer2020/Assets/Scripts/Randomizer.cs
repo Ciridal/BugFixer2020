@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Randomizer : MonoBehaviour
 {
-    //public string input;
-    public float seed;
+    public System.Random seed;
 
     void Start()
     {
@@ -19,6 +20,11 @@ public class Randomizer : MonoBehaviour
     
     public void SetSeed(string input)
     {
-        seed = Random.Range(0, input.GetHashCode());
+        seed = new System.Random(input.GetHashCode());
+    }
+
+    public void SetSeed(GameObject obj)
+    {
+        seed = new System.Random(obj.GetComponent<Text>().text.GetHashCode());
     }
 }
