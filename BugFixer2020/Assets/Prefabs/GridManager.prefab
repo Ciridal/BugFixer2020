@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3821174329334479056}
   - component: {fileID: 3821174329334479063}
+  - component: {fileID: 47371145}
   m_Layer: 0
   m_Name: GridManager
   m_TagString: GameManager
@@ -54,4 +55,17 @@ MonoBehaviour:
   rows: 100
   randomFillPercent: 47
   smoothness: 5
-  grid: {fileID: 0}
+  player: {fileID: 0}
+--- !u!114 &47371145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3821174329334479062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d4519001f7466d46aee0c1118e9964b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiles: []

@@ -127,11 +127,11 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3821174329767862212}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &47371145
+--- !u!114 &47371145 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 47371145, guid: b513874342fe0bf459190a416d87cf78,
+    type: 3}
+  m_PrefabInstance: {fileID: 3821174329767862212}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 47371142}
   m_Enabled: 1
@@ -139,7 +139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d4519001f7466d46aee0c1118e9964b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiles: []
 --- !u!1001 &1458153762
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -357,11 +356,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
-    - target: {fileID: 1716500057055351908, guid: 9395881114f810a49b7dbe8b5cb9c3a9,
-        type: 3}
-      propertyPath: orthographic
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1716500057055351910, guid: 9395881114f810a49b7dbe8b5cb9c3a9,
         type: 3}
       propertyPath: player
@@ -493,21 +487,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3821174329334479063, guid: b513874342fe0bf459190a416d87cf78,
         type: 3}
-      propertyPath: columns
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3821174329334479063, guid: b513874342fe0bf459190a416d87cf78,
-        type: 3}
-      propertyPath: rows
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3821174329334479063, guid: b513874342fe0bf459190a416d87cf78,
-        type: 3}
-      propertyPath: smoothness
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3821174329334479063, guid: b513874342fe0bf459190a416d87cf78,
-        type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1871698665}
@@ -523,11 +502,6 @@ PrefabInstance:
     - target: {fileID: 6293789334697471616, guid: ef005a930ee39e746b70c83482a8cbe6,
         type: 3}
       propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6293789334697471616, guid: ef005a930ee39e746b70c83482a8cbe6,
-        type: 3}
-      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6293789334697471620, guid: ef005a930ee39e746b70c83482a8cbe6,
