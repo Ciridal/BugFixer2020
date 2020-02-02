@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class TestPlayer : MonoBehaviour
@@ -41,13 +42,23 @@ public class TestPlayer : MonoBehaviour
             lastFire = Time.time;
         }
 
+        if(hp <= 0)
+        {
+            Death();
+        }
+
         camera.GetComponent<CameraBehaviour>().Move();
     }
 
-    int TakeDamage(int dmg)
+    public int TakeDamage(int dmg)
     {
         hp -= dmg;
         return hp;
+    }
+
+    void Death()
+    {
+        SceneManager.LoadScene("Death");
     }
 
     void Shoot(float x, float y)

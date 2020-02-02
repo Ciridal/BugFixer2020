@@ -33,6 +33,11 @@ public class SceneManagement : MonoBehaviour
         SceneManager.LoadScene(name);
     }
 
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
     public void NextLevel(string name)
     {
         Level++;

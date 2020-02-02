@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
     void DealDamage()
     {
 
-        //player.GetComponent<Player>().TakeDamage(damage);
+        player.GetComponent<TestPlayer>().TakeDamage(damage);
         Debug.Log("Monster hit player");
     }
 

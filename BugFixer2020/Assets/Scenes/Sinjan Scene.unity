@@ -246,7 +246,6 @@ MonoBehaviour:
   rows: 30
   randomFillPercent: 45
   smoothness: 5
-  grid: {fileID: 0}
 --- !u!4 &1342683037
 Transform:
   m_ObjectHideFlags: 0
@@ -311,6 +310,11 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 1508223173}
+    - target: {fileID: 6293789334697471620, guid: ef005a930ee39e746b70c83482a8cbe6,
+        type: 3}
+      propertyPath: hp
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 6293789334697471621, guid: ef005a930ee39e746b70c83482a8cbe6,
         type: 3}
       propertyPath: m_LocalPosition.x
