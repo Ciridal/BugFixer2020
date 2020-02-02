@@ -128,7 +128,49 @@ public class Grid : MonoBehaviour
 
     public PathNode GetNodePosition(float x, float y)
     {
-        return nodes.Find(n => n.tile.transform.position == new Vector3(x, y));
+        var node = nodes.Find(n => n.tile.transform.position == new Vector3(x, y));
+        if (node != null)
+            return node;
+        else
+            return FindNearestNode(new Vector3(x, y));
+    }
+
+    public PathNode GetNodePosition(Vector3 position)
+    {
+        var node = nodes.Find(n => n.tile.transform.position == position);
+        if (node != null)
+            return node;
+        else
+            return FindNearestNode(position);
+    }
+
+    private PathNode FindNearestNode(Vector3 position)
+    {
+        PathNode node = null;
+        float minDist = cellSize;
+        //Get list of nearest nodes
+        List<PathNode> nearest = nodes.Where(n => n.tile.transform.position.x >= position.x - cellSize
+            && n.tile.transform.position.x <= position.x + cellSize
+            && n.tile.transform.position.y >= position.y - cellSize
+            && n.tile.transform.position.y <= position.y + cellSize).ToList();
+
+        //Calculate the nearest
+        if(nearest.Count >= 1)
+        {
+            foreach (PathNode n in nearest)
+            {
+                float dist = Vector3.Distance(n.tile.transform.position, position);
+                if (dist < minDist)
+                {
+                    node = n;
+                    minDist = dist;
+                }
+            }
+            return node;
+        }
+
+        //No nodes available (probably out of bounds)
+        return null;
     }
 
     public PathNode GetNode(int x, int y)

@@ -28,7 +28,7 @@ public class PathNode
         tile.GetComponent<SpriteRenderer>().color = color;
     }
 
-    public Vector3 GetWorldPosition()
+    public Vector3 WorldPosition()
     {
         return tile.transform.position;
     }

@@ -7,6 +7,7 @@ public class TestPlayer : MonoBehaviour
 {
     public float nodeLength = 1;
     public GameObject camera;
+    public Grid GridManager;
     public int hp;
     //public Sprite bullet;
     public GameObject bulletPrefab;
@@ -17,22 +18,22 @@ public class TestPlayer : MonoBehaviour
 
     void Start()
     {
-        this.transform.position += new Vector3(nodeLength, nodeLength) * .5f;
+        //this.transform.position += new Vector3(nodeLength, nodeLength) * .5f;
     }
     
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.W))
-            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + nodeLength, this.transform.position.z);
+            Move("up");
 
         if (Input.GetKeyUp(KeyCode.A))
-            this.transform.position = new Vector3(this.transform.position.x - nodeLength, this.transform.position.y, this.transform.position.z);
+            Move("left");
 
         if (Input.GetKeyUp(KeyCode.S))
-            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - nodeLength, this.transform.position.z);
+            Move("down");
 
         if (Input.GetKeyUp(KeyCode.D))
-            this.transform.position = new Vector3(this.transform.position.x + nodeLength, this.transform.position.y, this.transform.position.z);
+            Move("right");
 
         float shootHor = Input.GetAxis("ShootHorizontal");
         float shootVert = Input.GetAxis("ShootVertical");
@@ -80,4 +81,46 @@ public class TestPlayer : MonoBehaviour
         return score;
     }
 
+    public PathNode CurrentNode()
+    {
+        return GridManager.GetNodePosition(this.transform.position);
+    }
+
+    private PathNode NextNode(Vector3 position)
+    {
+        return GridManager.GetNodePosition(position);
+    }
+
+    private void Move(string direction)
+    {
+        Vector3 nextPos;
+        PathNode next;
+        switch (direction)
+        {
+            case "up":
+                nextPos = new Vector3(this.transform.position.x, this.transform.position.y + nodeLength);
+                next = NextNode(nextPos);
+                if (next != null && next.walkable)
+                    this.transform.position = new Vector3(next.WorldPosition().x, next.WorldPosition().y, this.transform.position.z);
+                break;
+            case "down":
+                nextPos = new Vector3(this.transform.position.x, this.transform.position.y - nodeLength);
+                next = NextNode(nextPos);
+                if (next != null && next.walkable)
+                    this.transform.position = new Vector3(next.WorldPosition().x, next.WorldPosition().y, this.transform.position.z);
+                break;
+            case "left":
+                nextPos = new Vector3(this.transform.position.x - nodeLength, this.transform.position.y);
+                next = NextNode(nextPos);
+                if (next != null && next.walkable)
+                    this.transform.position = new Vector3(next.WorldPosition().x, next.WorldPosition().y, this.transform.position.z);
+                break;
+            case "right":
+                nextPos = new Vector3(this.transform.position.x + nodeLength, this.transform.position.y);
+                next = NextNode(nextPos);
+                if (next != null && next.walkable)
+                    this.transform.position = new Vector3(next.WorldPosition().x, next.WorldPosition().y, this.transform.position.z);
+                break;
+        }
+    }
 }

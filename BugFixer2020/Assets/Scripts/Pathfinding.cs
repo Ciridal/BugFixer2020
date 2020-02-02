@@ -25,8 +25,8 @@ public class Pathfinding : MonoBehaviour
     
     private void FindPath(Vector3 startPos, Vector3 targetPos)
     {
-        PathNode startNode = grid.GetNodePosition(startPos.x, startPos.y);
-        PathNode targetNode = grid.GetNodePosition(targetPos.x, targetPos.y);
+        PathNode startNode = grid.GetNodePosition(startPos);
+        PathNode targetNode = grid.GetNodePosition(targetPos);
 
         //Debug.Log(startNode.tile.name);
         //Debug.Log(targetNode.tile.name);
