@@ -75,4 +75,9 @@ public class TestPlayer : MonoBehaviour
         return score;
     }
 
+    public int GetScore()
+    {
+        return score;
+    }
+
 }
