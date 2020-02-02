@@ -5,7 +5,6 @@ using UnityEngine;
 public class PathNode 
 {
     public GameObject tile;
-    public int gCost, hCost;
     public int gridX, gridY;
     public bool walkable;
 
@@ -16,11 +15,6 @@ public class PathNode
         gridX = x;
         gridY = y;
         walkable = _walkable;
-    }
-
-    public int fCost()
-    {
-        return gCost + hCost;
     }
 
     public void SetColour(Color color)

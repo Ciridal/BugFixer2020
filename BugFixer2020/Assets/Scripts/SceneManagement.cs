@@ -22,10 +22,10 @@ public class SceneManagement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            NextLevel(LevelName);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    NextLevel(LevelName);
+        //}
     }
 
     public void LoadScene(string name)

@@ -117,8 +117,14 @@ public class Grid : MonoBehaviour
         neighbours.Add(nodes.Find(n => n.gridX == node.gridX && n.gridY == node.gridY - 1)); //BOTTOM
         neighbours.Add(nodes.Find(n => n.gridX == node.gridX + 1 && n.gridY == node.gridY)); //RIGHT
         neighbours.Add(nodes.Find(n => n.gridX == node.gridX && n.gridY == node.gridY + 1)); //TOP
+        Debug.Log(neighbours.Where(n => n != null).ToList().Count);
 
-        return neighbours;
+        return neighbours.Where(n => n != null).ToList();
+    }
+
+    public List<PathNode> GetWalkableNeighbours(PathNode node)
+    {
+        return GetNeighbours(node).Where(n => n.walkable).ToList();
     }
 
     public Vector3 GetWorldPosition(int x, int y)
@@ -217,5 +223,10 @@ public class Grid : MonoBehaviour
     public GameObject GetTile(string name)
     {
         return tiles.Find(t => t.gameObject.name == name);
+    }
+
+    public float CellSize()
+    {
+        return cellSize;
     }
 }
