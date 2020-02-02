@@ -28,8 +28,11 @@ public class Pathfinding : MonoBehaviour
         PathNode startNode = grid.GetNodePosition(startPos.x, startPos.y);
         PathNode targetNode = grid.GetNodePosition(targetPos.x, targetPos.y);
 
-        //Debug.Log(startNode.tile);
-        //Debug.Log(targetNode.tile);
+        //Debug.Log(startNode.tile.name);
+        //Debug.Log(targetNode.tile.name);
+
+        startNode.SetColour(Color.green);
+        targetNode.SetColour(Color.red);
 
         List<PathNode> openSet = new List<PathNode>();
         HashSet<PathNode> closedSet = new HashSet<PathNode>();
@@ -55,6 +58,7 @@ public class Pathfinding : MonoBehaviour
                 {
                     //if (openSet[i].hCost < node.hCost)
                         node = openSet[i];
+                    node.SetColour(Color.red);
                 }
             }
 

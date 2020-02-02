@@ -106,17 +106,17 @@ public class Grid : MonoBehaviour
 
     public GameObject GetTileWithPosition(Vector3 position)
     {
-        return tiles.FirstOrDefault(n => n.transform.position == position);
+        return tiles.Find(n => n.transform.position == position);
     }
 
     public List<PathNode> GetNeighbours(PathNode node)
     {
         List<PathNode> neighbours = new List<PathNode>();
 
-        neighbours.Add(nodes.FirstOrDefault(n => n.gridX == node.gridX - 1 && n.gridY == node.gridY)); //LEFT
-        neighbours.Add(nodes.FirstOrDefault(n => n.gridX == node.gridX && n.gridY == node.gridY - 1)); //BOTTOM
-        neighbours.Add(nodes.FirstOrDefault(n => n.gridX == node.gridX + 1 && n.gridY == node.gridY)); //RIGHT
-        neighbours.Add(nodes.FirstOrDefault(n => n.gridX == node.gridX && n.gridY == node.gridY + 1)); //TOP
+        neighbours.Add(nodes.Find(n => n.gridX == node.gridX - 1 && n.gridY == node.gridY)); //LEFT
+        neighbours.Add(nodes.Find(n => n.gridX == node.gridX && n.gridY == node.gridY - 1)); //BOTTOM
+        neighbours.Add(nodes.Find(n => n.gridX == node.gridX + 1 && n.gridY == node.gridY)); //RIGHT
+        neighbours.Add(nodes.Find(n => n.gridX == node.gridX && n.gridY == node.gridY + 1)); //TOP
 
         return neighbours;
     }
@@ -128,7 +128,7 @@ public class Grid : MonoBehaviour
 
     public PathNode GetNodePosition(float x, float y)
     {
-        return nodes.FirstOrDefault(n => n.tile.transform.position == new Vector3(x, y));
+        return nodes.Find(n => n.tile.transform.position == new Vector3(x, y));
     }
 
     public PathNode GetNode(int x, int y)
