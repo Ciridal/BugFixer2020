@@ -49,6 +49,7 @@ public class Enemy : MonoBehaviour
 
     void Death()
     {
+        player.GetComponent<TestPlayer>().AddScore(1);
         Destroy(gameObject);
     }
 }
