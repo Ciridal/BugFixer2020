@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public int randomFillPercent;
     public int smoothness = 5;
 
+    public GameObject player;
+
     //public Grid grid;
     private System.Random seed = null;
     
@@ -23,6 +25,7 @@ public class GameManager : MonoBehaviour
         if(seedObject != null)
             seed = seedObject.seed;
         this.GetComponent<Grid>().CreateGrid(columns, rows, gridSprite, cellSize, randomFillPercent, seed, smoothness);
+        player.GetComponent<TestPlayer>().SetGridPosition(true);
     }
 
     private void Update()

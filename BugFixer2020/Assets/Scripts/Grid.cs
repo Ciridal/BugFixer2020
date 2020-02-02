@@ -173,6 +173,32 @@ public class Grid : MonoBehaviour
         return null;
     }
 
+    public PathNode FindNearestWalkable(Vector3 position)
+    {
+        PathNode node = null;
+        float minDist = Mathf.Infinity;
+        //Get list of nearest nodes
+        List<PathNode> walkables = nodes.Where(n => n.walkable == true).ToList();
+
+        //Calculate the nearest
+        if (walkables.Count >= 1)
+        {
+            foreach (PathNode n in walkables)
+            {
+                float dist = Vector3.Distance(n.tile.transform.position, position);
+                if (dist < minDist)
+                {
+                    node = n;
+                    minDist = dist;
+                }
+            }
+            return node;
+        }
+
+        //No nodes available (probably out of bounds)
+        return null;
+    }
+
     public PathNode GetNode(int x, int y)
     {
         return nodes.Find(n => n.gridX == x && n.gridY == y);

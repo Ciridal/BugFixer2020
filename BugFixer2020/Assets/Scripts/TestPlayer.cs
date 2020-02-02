@@ -123,4 +123,19 @@ public class TestPlayer : MonoBehaviour
                 break;
         }
     }
+
+    public void SetGridPosition(bool walkable = false)
+    {
+        if (walkable)
+        {
+            PathNode nearest = GridManager.FindNearestWalkable(this.transform.position);
+            this.transform.position = nearest.WorldPosition();
+        }
+        else
+        {
+            PathNode current = CurrentNode();
+            if (current != null)
+                this.transform.position = current.WorldPosition();
+        }
+    }
 }
