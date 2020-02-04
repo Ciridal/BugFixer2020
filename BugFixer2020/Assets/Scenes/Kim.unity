@@ -319,6 +319,11 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 47371142}
+    - target: {fileID: 459929176867114458, guid: 8620024312787b44ea07173e31c01f5c,
+        type: 3}
+      propertyPath: walkableOnly
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 459929176867114459, guid: 8620024312787b44ea07173e31c01f5c,
         type: 3}
       propertyPath: m_Name
@@ -504,12 +509,12 @@ PrefabInstance:
     - target: {fileID: 6293789334697471621, guid: ef005a930ee39e746b70c83482a8cbe6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 50
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 6293789334697471621, guid: ef005a930ee39e746b70c83482a8cbe6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 50
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 6293789334697471621, guid: ef005a930ee39e746b70c83482a8cbe6,
         type: 3}

@@ -231,24 +231,33 @@ public class Grid : MonoBehaviour
         return null;
     }
 
+    //Moves one step towards the centre of the grid
+    //DOES NOT WORK IF NODE IS ALREADY AT THE CENTRE
+    public PathNode MoveTowardsCentre(PathNode node)
+    {
+        int x = node.gridX;
+        int y = node.gridY;
+        int centreX = (int)Mathf.Sqrt(nodes.Count) / 2;
+        int centreY = (int)Mathf.Sqrt(nodes.Count) / 2;
+
+        int distX = x - centreX;
+        int distY = y - centreY;
+
+        if (distX < 0)
+            x++;
+        else
+            x--;
+
+        if (distY < 0)
+            y++;
+        else
+            y--;
+        return GetNode(x, y);
+    }
+
     public PathNode GetNode(int x, int y)
     {
         return nodes.Find(n => n.gridX == x && n.gridY == y);
-    }
-
-    public GameObject GetTile(PathNode node)
-    {
-        return tiles.Find(t => t.gameObject.name == node.tile.name);
-    }
-
-    public GameObject GetTile(int x, int y)
-    {
-        return tiles.Find(t => t.gameObject.name == x + "," + y);
-    }
-
-    public GameObject GetTile(string name)
-    {
-        return tiles.Find(t => t.gameObject.name == name);
     }
 
     public float CellSize()

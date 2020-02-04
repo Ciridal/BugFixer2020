@@ -9,6 +9,10 @@ public class Pathfinding : MonoBehaviour
     public Transform seeker, target;
     public GameObject gameManager;
     public List<PathNode> path;
+    public bool walkableOnly = true;
+
+    //If no path to player is available
+    public bool outOfBound = false;
 
     private void Start()
     {
@@ -19,18 +23,21 @@ public class Pathfinding : MonoBehaviour
 
     private void Update()
     {
+        if(outOfBound)
+            Debug.Log("Path not found");
+
         //Empty old path and retrace new one
         if (this.path != null && this.path.IndexOf(grid.GetNodePosition(target.position)) != this.path.Count - 1)
             EmptyPath(this.path);
 
         if(this.path == null || this.path.Count <= 0 || this.path.IndexOf(grid.GetNodePosition(target.position)) != this.path.Count - 1)
-            FindPath(seeker.position, target.position);
+            FindPath(seeker.position, target.position, walkableOnly);
 
         //Debug.Log(this.path.IndexOf(grid.GetNodePosition(target.position)));
         //Debug.Log("Length: " + (this.path.Count - 1));
     }
     
-    private void FindPath(Vector3 startPos, Vector3 targetPos)
+    private void FindPath(Vector3 startPos, Vector3 targetPos, bool onlyWalkable)
     {
         PathNode startNode = grid.GetNodePosition(startPos);
         PathNode targetNode = grid.GetNodePosition(targetPos);
@@ -38,51 +45,59 @@ public class Pathfinding : MonoBehaviour
         List<PathNode> openSet = new List<PathNode>();
         var cameFrom = new Dictionary<PathNode, PathNode>();
 
-        openSet.Add(startNode);
-        var gScore = new Dictionary<PathNode, int>();
-        var fScore = new Dictionary<PathNode, int>();
-        gScore[startNode] = 0;
-        fScore[startNode] = GetDistance(startNode, targetNode);
-
-        while (openSet.Count > 0)
+        if(startNode != null && targetNode != null)
         {
-            openSet.Sort((n1, n2) =>
-            {
-                int fScore1, fScore2;
-                if (!fScore.TryGetValue(n1, out fScore1))
-                {
-                    fScore1 = int.MaxValue;
-                }
-                if (!fScore.TryGetValue(n2, out fScore2))
-                {
-                    fScore2 = int.MaxValue;
-                }
-                return fScore1 - fScore2;
-            });
-            PathNode node = openSet[0];
-            if (node == targetNode)
-            {
-                RetracePath(cameFrom, targetNode);
-                return;
-            }
+            openSet.Add(startNode);
+            var gScore = new Dictionary<PathNode, int>();
+            var fScore = new Dictionary<PathNode, int>();
+            gScore[startNode] = 0;
+            fScore[startNode] = GetDistance(startNode, targetNode);
 
-            openSet.Remove(node);
-            foreach(var neighbor in grid.GetWalkableNeighbours(node))
+            while (openSet.Count > 0)
             {
-                var tentativeScore = gScore[node] + 1;
-                int neighborScore;
-                if (!gScore.TryGetValue(neighbor, out neighborScore)) neighborScore = int.MaxValue;
-                if(tentativeScore < neighborScore)
+                openSet.Sort((n1, n2) =>
                 {
-                    cameFrom[neighbor] = node;
-                    gScore[neighbor] = tentativeScore;
-                    fScore[neighbor] = tentativeScore + GetDistance(neighbor, targetNode);
-                    if (!openSet.Contains(neighbor))
-                        openSet.Add(neighbor);
+                    int fScore1, fScore2;
+                    if (!fScore.TryGetValue(n1, out fScore1))
+                    {
+                        fScore1 = int.MaxValue;
+                    }
+                    if (!fScore.TryGetValue(n2, out fScore2))
+                    {
+                        fScore2 = int.MaxValue;
+                    }
+                    return fScore1 - fScore2;
+                });
+                PathNode node = openSet[0];
+                if (node == targetNode)
+                {
+                    RetracePath(cameFrom, targetNode);
+                    return;
+                }
+
+                openSet.Remove(node);
+                List<PathNode> neighbours;
+                if (onlyWalkable)
+                    neighbours = grid.GetWalkableNeighbours(node);
+                else
+                    neighbours = grid.GetNeighbours(node);
+                foreach (var neighbor in neighbours)
+                {
+                    var tentativeScore = gScore[node] + 1;
+                    int neighborScore;
+                    if (!gScore.TryGetValue(neighbor, out neighborScore)) neighborScore = int.MaxValue;
+                    if (tentativeScore < neighborScore)
+                    {
+                        cameFrom[neighbor] = node;
+                        gScore[neighbor] = tentativeScore;
+                        fScore[neighbor] = tentativeScore + GetDistance(neighbor, targetNode);
+                        if (!openSet.Contains(neighbor))
+                            openSet.Add(neighbor);
+                    }
                 }
             }
         }
-        Debug.Log("Path not found");
+        outOfBound = true;
     }
 
     void RetracePath(Dictionary<PathNode,PathNode> cameFrom, PathNode endNode)
