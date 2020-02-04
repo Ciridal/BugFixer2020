@@ -127,6 +127,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3821174329767862212}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &47371143 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3821174329334479063, guid: b513874342fe0bf459190a416d87cf78,
+    type: 3}
+  m_PrefabInstance: {fileID: 3821174329767862212}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47371142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616219de7d706b04b9b913174501193f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &47371145 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 47371145, guid: b513874342fe0bf459190a416d87cf78,
@@ -258,6 +270,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f410dc688ac1b4489dfc722fa157dc5, type: 3}
+--- !u!1 &1454307381
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1454307383}
+  - component: {fileID: 1454307382}
+  m_Layer: 0
+  m_Name: EnemyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1454307382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454307381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5117b293f27454d80f4ca8b6e7e758, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: []
+  enemy: {fileID: 640727225253839702, guid: bd991e1ab30cc644c8352b1e8487431e, type: 3}
+  enemyCount: 5
+  gameManager: {fileID: 47371143}
+--- !u!4 &1454307383
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454307381}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 81.59587, y: 58.02806, z: -43.61817}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1458153762
 PrefabInstance:
   m_ObjectHideFlags: 0

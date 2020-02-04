@@ -7,14 +7,14 @@ public class EnemyManager : MonoBehaviour
     public List<GameObject> enemies;
     public GameObject enemy;
     public int enemyCount = 5;
-    GameManager gameManager;
+    public GameManager gameManager;
     SceneManagement sceneManagement;
     Grid grid;
 
    
     void Start()
     {
-       
+        Spawn();
     }
 
     void Update()
