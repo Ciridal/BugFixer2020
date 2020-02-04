@@ -39,6 +39,8 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        pathfinding.DoPathFinding(this.transform, player.transform);
+
         currentNode = CurrentNode();
 
         path = pathfinding.path;
