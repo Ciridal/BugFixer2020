@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     float dist;
     float lastHit;
     public int damageDelay;
+    Grid gridManager;
+    public Pathfinding pathfinding;
 
     void Start()
     {
@@ -51,5 +53,19 @@ public class Enemy : MonoBehaviour
     {
         player.GetComponent<TestPlayer>().AddScore(1);
         Destroy(gameObject);
+    }
+
+    public void SetGridPosition(int x, int y, bool walkable = false)
+    {
+        if (walkable)
+        {
+            PathNode nearest = gridManager.FindNearestWalkable(gridManager.GetNode(x, y));
+            this.transform.position = new Vector3(nearest.WorldPosition().x, nearest.WorldPosition().y, this.transform.position.z);
+        }
+        else
+        {
+            PathNode target = gridManager.GetNode(x, y);
+            this.transform.position = new Vector3(target.WorldPosition().x, target.WorldPosition().y, this.transform.position.z);
+        }
     }
 }
