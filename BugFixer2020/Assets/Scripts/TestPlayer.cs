@@ -18,7 +18,7 @@ public class TestPlayer : MonoBehaviour
 
     void Start()
     {
-        //this.transform.position += new Vector3(nodeLength, nodeLength) * .5f;
+
     }
     
     void Update()
@@ -129,13 +129,13 @@ public class TestPlayer : MonoBehaviour
         if (walkable)
         {
             PathNode nearest = GridManager.FindNearestWalkable(this.transform.position);
-            this.transform.position = nearest.WorldPosition();
+            this.transform.position = new Vector3(nearest.WorldPosition().x, nearest.WorldPosition().y, this.transform.position.z);
         }
         else
         {
             PathNode current = CurrentNode();
             if (current != null)
-                this.transform.position = current.WorldPosition();
+                this.transform.position = new Vector3(current.WorldPosition().x, current.WorldPosition().y, this.transform.position.z);
         }
     }
 }
