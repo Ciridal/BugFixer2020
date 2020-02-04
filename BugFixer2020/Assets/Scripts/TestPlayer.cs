@@ -138,4 +138,18 @@ public class TestPlayer : MonoBehaviour
                 this.transform.position = new Vector3(current.WorldPosition().x, current.WorldPosition().y, this.transform.position.z);
         }
     }
+
+    public void SetGridPosition(int x, int y, bool walkable = false)
+    {
+        if(walkable)
+        {
+            PathNode nearest = GridManager.FindNearestWalkable(GridManager.GetNode(x,y));
+            this.transform.position = new Vector3(nearest.WorldPosition().x, nearest.WorldPosition().y, this.transform.position.z);
+        }
+        else
+        {
+            PathNode target = GridManager.GetNode(x, y);
+            this.transform.position = new Vector3(target.WorldPosition().x, target.WorldPosition().y, this.transform.position.z);
+        }
+    }
 }

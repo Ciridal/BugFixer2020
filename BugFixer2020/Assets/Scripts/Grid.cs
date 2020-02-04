@@ -117,7 +117,7 @@ public class Grid : MonoBehaviour
         neighbours.Add(nodes.Find(n => n.gridX == node.gridX && n.gridY == node.gridY - 1)); //BOTTOM
         neighbours.Add(nodes.Find(n => n.gridX == node.gridX + 1 && n.gridY == node.gridY)); //RIGHT
         neighbours.Add(nodes.Find(n => n.gridX == node.gridX && n.gridY == node.gridY + 1)); //TOP
-        Debug.Log(neighbours.Where(n => n != null).ToList().Count);
+        //Debug.Log(neighbours.Where(n => n != null).ToList().Count);
 
         return neighbours.Where(n => n != null).ToList();
     }
@@ -192,6 +192,32 @@ public class Grid : MonoBehaviour
             foreach (PathNode n in walkables)
             {
                 float dist = Vector3.Distance(n.tile.transform.position, position);
+                if (dist < minDist)
+                {
+                    node = n;
+                    minDist = dist;
+                }
+            }
+            return node;
+        }
+
+        //No nodes available (probably out of bounds)
+        return null;
+    }
+
+    public PathNode FindNearestWalkable(PathNode pathNode)
+    {
+        PathNode node = null;
+        float minDist = Mathf.Infinity;
+        //Get list of nearest nodes
+        List<PathNode> walkables = nodes.Where(n => n.walkable == true).ToList();
+
+        //Calculate the nearest
+        if (walkables.Count >= 1)
+        {
+            foreach (PathNode n in walkables)
+            {
+                float dist = Vector3.Distance(n.tile.transform.position, pathNode.tile.transform.position);
                 if (dist < minDist)
                 {
                     node = n;

@@ -19,17 +19,21 @@ public class Pathfinding : MonoBehaviour
 
     private void Update()
     {
-        FindPath(seeker.position, target.position);
+        //Empty old path and retrace new one
+        if (this.path != null && this.path.IndexOf(grid.GetNodePosition(target.position)) != this.path.Count - 1)
+            EmptyPath(this.path);
+
+        if(this.path == null || this.path.Count <= 0 || this.path.IndexOf(grid.GetNodePosition(target.position)) != this.path.Count - 1)
+            FindPath(seeker.position, target.position);
+
+        //Debug.Log(this.path.IndexOf(grid.GetNodePosition(target.position)));
+        //Debug.Log("Length: " + (this.path.Count - 1));
     }
     
     private void FindPath(Vector3 startPos, Vector3 targetPos)
     {
         PathNode startNode = grid.GetNodePosition(startPos);
         PathNode targetNode = grid.GetNodePosition(targetPos);
-
-        startNode.SetColour(Color.green);
-        targetNode.SetColour(Color.red);
-        //Debug.Log(GetDistance(startNode, targetNode));
 
         List<PathNode> openSet = new List<PathNode>();
         var cameFrom = new Dictionary<PathNode, PathNode>();
@@ -40,7 +44,6 @@ public class Pathfinding : MonoBehaviour
         gScore[startNode] = 0;
         fScore[startNode] = GetDistance(startNode, targetNode);
 
-        //Everything underneath this point is still WIP and probably doesn't work
         while (openSet.Count > 0)
         {
             openSet.Sort((n1, n2) =>
@@ -98,7 +101,14 @@ public class Pathfinding : MonoBehaviour
 
         foreach(var node in path)
         {
-            node.SetColour(Color.blue);
+            //Startnode
+            if (path.IndexOf(node) == 0)
+                node.SetColour(Color.green);
+            //Targetnode
+            else if (path.IndexOf(node) == path.Count - 1)
+                node.SetColour(Color.red);
+            else
+                node.SetColour(Color.blue);
         }
         this.path = path;
     }
@@ -107,5 +117,14 @@ public class Pathfinding : MonoBehaviour
     { 
         var cellSize = grid.CellSize();
         return Mathf.CeilToInt(Vector3.Distance(nodeA.WorldPosition(), nodeB.WorldPosition()) / cellSize); //eii lamo
+    }
+
+    private void EmptyPath(List<PathNode> path)
+    {
+        foreach(PathNode node in path)
+        {
+            node.ResetColour();
+        }
+        path = null;
     }
 }

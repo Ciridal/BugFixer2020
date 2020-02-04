@@ -22,6 +22,11 @@ public class PathNode
         tile.GetComponent<SpriteRenderer>().color = color;
     }
 
+    public void ResetColour()
+    {
+        tile.GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
     public Vector3 WorldPosition()
     {
         return tile.transform.position;
