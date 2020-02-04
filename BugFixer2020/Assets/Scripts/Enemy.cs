@@ -30,7 +30,8 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         if(gridManager == null)
-            gridManager = GameObject.FindObjectOfType<Grid>();
+            gridManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Grid>();
+        Debug.Log(gridManager);
 
         if (pathfinding == null)
             pathfinding = this.gameObject.GetComponent<Pathfinding>();
@@ -108,7 +109,9 @@ public class Enemy : MonoBehaviour
     {
         if (walkable)
         {
-            PathNode nearest = gridManager.FindNearestWalkable(gridManager.GetNode(x, y));
+            Debug.Log("x: " + x + " y: " + y);
+            Debug.Log(gridManager.GetNode(x, y));
+            PathNode nearest = gridManager.FindNearestWalkable(gridManager.GetNodePosition(transform.position));
             MoveToNode(nearest);
         }
         else

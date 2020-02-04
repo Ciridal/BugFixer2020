@@ -36,9 +36,9 @@ public class EnemyManager : MonoBehaviour
             var newEnemy = Instantiate(enemy);
             enemies.Add(newEnemy);
 
-            newEnemy.GetComponent<Enemy>().SetGridPosition(gameManager.columns, gameManager.rows, walkable);
+            newEnemy.GetComponent<Enemy>().SetGridPosition(gameManager.columns - 1, gameManager.rows -1, walkable);
             
-            if(newEnemy.GetComponent<Enemy>().pathfinding.path == null)
+            if(newEnemy.GetComponent<Enemy>().outOfBounds)
             {
                 grid.MoveTowardsCentre(grid.FindNearestWalkable(transform.position));
             }
