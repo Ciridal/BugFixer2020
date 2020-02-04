@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public int hp;
     public int damage;
     public float speed;
+    public EnemyManager enemyManager;
 
     //Time stuff
     public float damageDelay;
@@ -30,8 +31,10 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         if(gridManager == null)
-            gridManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<Grid>();
-        Debug.Log(gridManager);
+            gridManager = GameObject.FindObjectOfType<Grid>();
+
+        if (enemyManager == null)
+            enemyManager = GameObject.FindObjectOfType<EnemyManager>();
 
         if (pathfinding == null)
             pathfinding = this.gameObject.GetComponent<Pathfinding>();
@@ -81,6 +84,7 @@ public class Enemy : MonoBehaviour
     void Death()
     {
         player.GetComponent<Player>().AddScore(1);
+        enemyManager.OnEnemyDeath();
         if (this.path != null)
             this.pathfinding.StopPathFinding();
         Destroy(gameObject);

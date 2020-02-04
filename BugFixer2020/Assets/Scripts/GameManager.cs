@@ -15,7 +15,9 @@ public class GameManager : MonoBehaviour
     public int smoothness = 5;
 
     public GameObject player;
-    public GameObject enemy;
+    //public GameObject enemy;
+
+    public EnemyManager enemyManager;
 
     //public Grid grid;
     private System.Random seed = null;
@@ -27,7 +29,10 @@ public class GameManager : MonoBehaviour
             seed = seedObject.seed;
         this.GetComponent<Grid>().CreateGrid(columns, rows, gridSprite, cellSize, randomFillPercent, seed, smoothness);
         player.GetComponent<Player>().SetGridPosition(50,50,true);
-        enemy.GetComponent<Enemy>().SetGridPosition(true);
+        if (enemyManager == null)
+            enemyManager = this.GetComponent<EnemyManager>();
+        enemyManager.Spawn();
+        //enemy.GetComponent<Enemy>().SetGridPosition(true);
     }
 
     private void Update()

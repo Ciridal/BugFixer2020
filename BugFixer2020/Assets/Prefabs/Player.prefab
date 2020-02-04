@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6293789334697471621}
   - component: {fileID: 6293789334697471618}
   - component: {fileID: 6293789334697471619}
-  - component: {fileID: 6293789334697471620}
+  - component: {fileID: 1871698666}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -102,7 +102,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6293789334697471620
+--- !u!114 &1871698666
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6293789334697471616}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c4feb5eb18cb4846bdbf16f4df9f222, type: 3}
+  m_Script: {fileID: 11500000, guid: 8545e526807948b409fbcebcb5812eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nodeLength: 1
@@ -120,6 +120,6 @@ MonoBehaviour:
   hp: 50
   bulletPrefab: {fileID: 1425029137734892450, guid: 656233b95f35c2748923909b84047d36,
     type: 3}
-  bulletSpeed: 2
-  fireDelay: 1
+  bulletSpeed: 7
+  fireDelay: 0.1
   score: 0

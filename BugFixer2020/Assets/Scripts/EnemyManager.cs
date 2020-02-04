@@ -7,21 +7,30 @@ public class EnemyManager : MonoBehaviour
     public List<GameObject> enemies;
     public GameObject enemy;
     public int enemyCount = 5;
+    public int deathAmount = 0;
     public GameManager gameManager;
-    SceneManagement sceneManagement;
+    public SceneManagement sceneManagement;
     Grid grid;
 
-   
+    public bool isReady = false;
+
     void Start()
     {
-        Spawn();
+        if (gameManager == null)
+            gameManager = this.GetComponent<GameManager>();
+
+        if (sceneManagement == null)
+            sceneManagement = this.GetComponent<SceneManagement>();
     }
 
     void Update()
     {
-        if(enemies.Count <= 0)
+        if(deathAmount >= enemyCount)
         {
-            sceneManagement.NextLevel("Kim");
+            if (sceneManagement != null)
+                sceneManagement.NextLevel("Kim");
+            else
+                Debug.Log("Congratulations!");
             enemyCount += 5;
         }
     }
@@ -32,8 +41,9 @@ public class EnemyManager : MonoBehaviour
 
         for (int i = 0; i < enemyCount; i++)
         {
-            
             var newEnemy = Instantiate(enemy);
+            if(newEnemy.active == false)
+                newEnemy.SetActive(true);
             enemies.Add(newEnemy);
 
             newEnemy.GetComponent<Enemy>().SetGridPosition(gameManager.columns - 1, gameManager.rows -1, walkable);
@@ -44,7 +54,7 @@ public class EnemyManager : MonoBehaviour
             }
         }
 
-        
+        isReady = true;
     }
 
     Vector3 RandomPosition()
@@ -52,13 +62,13 @@ public class EnemyManager : MonoBehaviour
         var randX = Random.Range(1, 50);
         var randY = Random.Range(1, 50);
 
-
         Vector3 randPos = new Vector3(randX, randY, -0.1f);
 
         return randPos;
     }
 
-   
-   
-
+    public void OnEnemyDeath()
+    {
+        deathAmount++;
+    }
 }
