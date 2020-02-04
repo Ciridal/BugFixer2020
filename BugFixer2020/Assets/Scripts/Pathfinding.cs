@@ -6,7 +6,7 @@ using UnityEngine;
 public class Pathfinding : MonoBehaviour
 {
     private Grid grid;
-    public Transform seeker, target;
+    //public Transform seeker, target;
     public GameObject gameManager;
     public List<PathNode> path;
     public bool walkableOnly = true;
@@ -21,16 +21,16 @@ public class Pathfinding : MonoBehaviour
         grid = GameObject.FindObjectOfType<Grid>();
     }
 
-    private void Update()
+    public void DoPathFinding(Transform seeker, Transform target)
     {
-        if(outOfBound)
+        if (outOfBound)
             Debug.Log("Path not found");
 
         //Empty old path and retrace new one
         if (this.path != null && this.path.IndexOf(grid.GetNodePosition(target.position)) != this.path.Count - 1)
             EmptyPath(this.path);
 
-        if(!this.outOfBound && (this.path == null || this.path.Count <= 0 || this.path.IndexOf(grid.GetNodePosition(target.position)) != this.path.Count - 1))
+        if (!this.outOfBound && (this.path == null || this.path.Count <= 0 || this.path.IndexOf(grid.GetNodePosition(target.position)) != this.path.Count - 1))
             FindPath(seeker.position, target.position, walkableOnly);
     }
     
