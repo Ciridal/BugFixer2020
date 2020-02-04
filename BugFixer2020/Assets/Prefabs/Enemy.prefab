@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4127873898712926972}
   - component: {fileID: 6835029232677063645}
   - component: {fileID: -7830384703896226137}
+  - component: {fileID: 1458153765}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -125,6 +126,11 @@ MonoBehaviour:
   hp: 10
   damage: 5
   speed: 2
+  damageDelay: 2
+  moveDelay: 1
+  gridManager: {fileID: 0}
+  pathfinding: {fileID: 0}
+  outOfBounds: 0
 --- !u!60 &-7830384703896226137
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -181,3 +187,20 @@ PolygonCollider2D:
       - {x: 0.62, y: -0.55}
       - {x: 0.62, y: -0.32999998}
       - {x: 0.41, y: -0.22}
+--- !u!114 &1458153765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640727225253839702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8d5af8185305ec4886cd7e62858c2ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seeker: {fileID: 1967908477006525529}
+  target: {fileID: 0}
+  gameManager: {fileID: 0}
+  walkableOnly: 1
+  outOfBound: 0

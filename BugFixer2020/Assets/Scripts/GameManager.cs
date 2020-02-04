@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
         if(seedObject != null)
             seed = seedObject.seed;
         this.GetComponent<Grid>().CreateGrid(columns, rows, gridSprite, cellSize, randomFillPercent, seed, smoothness);
-        player.GetComponent<TestPlayer>().SetGridPosition(true);
-        enemy.GetComponent<wipnemy>().SetGridPosition(true);
+        player.GetComponent<Player>().SetGridPosition(50,50,true);
+        enemy.GetComponent<Enemy>().SetGridPosition(true);
     }
 
     private void Update()

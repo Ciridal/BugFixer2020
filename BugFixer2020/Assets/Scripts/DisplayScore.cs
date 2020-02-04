@@ -19,7 +19,7 @@ public class DisplayScore : MonoBehaviour
     private void Update()
     {
 
-        currentScore = player.GetComponent<TestPlayer>().GetScore();
+        currentScore = player.GetComponent<Player>().GetScore();
         text.text = "Score: " + currentScore;
     }
 

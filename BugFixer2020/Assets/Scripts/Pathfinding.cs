@@ -30,17 +30,15 @@ public class Pathfinding : MonoBehaviour
         if (this.path != null && this.path.IndexOf(grid.GetNodePosition(target.position)) != this.path.Count - 1)
             EmptyPath(this.path);
 
-        if(this.path == null || this.path.Count <= 0 || this.path.IndexOf(grid.GetNodePosition(target.position)) != this.path.Count - 1)
+        if(!this.outOfBound && (this.path == null || this.path.Count <= 0 || this.path.IndexOf(grid.GetNodePosition(target.position)) != this.path.Count - 1))
             FindPath(seeker.position, target.position, walkableOnly);
-
-        //Debug.Log(this.path.IndexOf(grid.GetNodePosition(target.position)));
-        //Debug.Log("Length: " + (this.path.Count - 1));
     }
     
     private void FindPath(Vector3 startPos, Vector3 targetPos, bool onlyWalkable)
     {
         PathNode startNode = grid.GetNodePosition(startPos);
         PathNode targetNode = grid.GetNodePosition(targetPos);
+        //startNode.SetColour(Color.yellow);
 
         List<PathNode> openSet = new List<PathNode>();
         var cameFrom = new Dictionary<PathNode, PathNode>();
@@ -100,7 +98,7 @@ public class Pathfinding : MonoBehaviour
         outOfBound = true;
     }
 
-    void RetracePath(Dictionary<PathNode,PathNode> cameFrom, PathNode endNode)
+    private void RetracePath(Dictionary<PathNode,PathNode> cameFrom, PathNode endNode)
     {
         List<PathNode> path = new List<PathNode>();
         PathNode currentNode = endNode;
@@ -128,7 +126,7 @@ public class Pathfinding : MonoBehaviour
         this.path = path;
     }
 
-    int GetDistance(PathNode nodeA, PathNode nodeB)
+    private int GetDistance(PathNode nodeA, PathNode nodeB)
     { 
         var cellSize = grid.CellSize();
         return Mathf.CeilToInt(Vector3.Distance(nodeA.WorldPosition(), nodeB.WorldPosition()) / cellSize); //eii lamo
@@ -136,10 +134,18 @@ public class Pathfinding : MonoBehaviour
 
     private void EmptyPath(List<PathNode> path)
     {
-        foreach(PathNode node in path)
+        if(path != null)
         {
-            node.ResetColour();
+            foreach (PathNode node in path)
+            {
+                node.ResetColour();
+            }
         }
         path = null;
+    }
+
+    public void StopPathFinding()
+    {
+        EmptyPath(this.path);
     }
 }

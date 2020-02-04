@@ -7,31 +7,58 @@ public class Enemy : MonoBehaviour
     public int hp;
     public int damage;
     public float speed;
-    GameObject player;
-    float dist;
-    float lastHit;
-    public int damageDelay;
-    Grid gridManager;
+
+    //Time stuff
+    public float damageDelay;
+    public float moveDelay;
+
+    private GameObject player;
+    private float dist;
+    private float lastHit;
+    private float lastMoved;
+
+    //Pathfinding stuff
+    public Grid gridManager;
     public Pathfinding pathfinding;
+    public List<PathNode> path;
+    public bool outOfBounds;
+
+    private List<PathNode> remainingPath;
+    private PathNode currentNode;
+    private PathNode nextNode;
 
     void Start()
     {
+        if(gridManager == null)
+            gridManager = GameObject.FindObjectOfType<Grid>();
+
+        if (pathfinding == null)
+            pathfinding = this.gameObject.GetComponent<Pathfinding>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
     {
-        if (hp <= 0)
-            Death();
+        currentNode = CurrentNode();
 
-        if(player)
+        path = pathfinding.path;
+        outOfBounds = pathfinding.outOfBound;
+
+        if (!outOfBounds)
         {
-            dist = Vector3.Distance(player.transform.position, transform.position);
+            if (path != null && Time.time > lastMoved + moveDelay)
+                Move();
 
-            if(dist < 1 && Time.time > lastHit + damageDelay)
+            if (hp <= 0)
+                Death();
+
+            if (player)
             {
-                DealDamage();
-                lastHit = Time.time;
+                if (this.currentNode == player.GetComponent<Player>().CurrentNode() && Time.time > lastHit + damageDelay)
+                {
+                    DealDamage();
+                    lastHit = Time.time;
+                }
             }
         }
     }
@@ -44,15 +71,35 @@ public class Enemy : MonoBehaviour
 
     void DealDamage()
     {
-
-        player.GetComponent<TestPlayer>().TakeDamage(damage);
+        player.GetComponent<Player>().TakeDamage(damage);
         Debug.Log("Monster hit player");
     }
 
     void Death()
     {
-        player.GetComponent<TestPlayer>().AddScore(1);
+        player.GetComponent<Player>().AddScore(1);
+        if (this.path != null)
+            this.pathfinding.StopPathFinding();
         Destroy(gameObject);
+    }
+    public PathNode CurrentNode()
+    {
+        return gridManager.GetNodePosition(this.transform.position);
+    }
+
+    public void SetGridPosition(bool walkable = false)
+    {
+        if (walkable)
+        {
+            PathNode nearest = gridManager.FindNearestWalkable(this.transform.position);
+            MoveToNode(nearest);
+        }
+        else
+        {
+            PathNode current = CurrentNode();
+            if (current != null)
+                MoveToNode(current);
+        }
     }
 
     public void SetGridPosition(int x, int y, bool walkable = false)
@@ -60,12 +107,31 @@ public class Enemy : MonoBehaviour
         if (walkable)
         {
             PathNode nearest = gridManager.FindNearestWalkable(gridManager.GetNode(x, y));
-            this.transform.position = new Vector3(nearest.WorldPosition().x, nearest.WorldPosition().y, this.transform.position.z);
+            MoveToNode(nearest);
         }
         else
         {
             PathNode target = gridManager.GetNode(x, y);
-            this.transform.position = new Vector3(target.WorldPosition().x, target.WorldPosition().y, this.transform.position.z);
+            MoveToNode(target);
         }
+    }
+
+    private void MoveToNode(PathNode node)
+    {
+        this.transform.position = new Vector3(node.WorldPosition().x, node.WorldPosition().y, this.transform.position.z);
+    }
+
+    private void Move()
+    {
+        if(currentNode != path[path.Count - 1])
+        {
+            nextNode = path[path.IndexOf(currentNode) + 1];
+            MoveToNode(nextNode);
+        }
+        else if(currentNode == path[path.Count - 1])
+        {
+            pathfinding.StopPathFinding();
+        }
+        lastMoved = Time.time;
     }
 }
