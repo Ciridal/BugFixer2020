@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3821174329334479062
+--- !u!1 &4864021056765269798
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,26 +8,26 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3821174329334479056}
-  - component: {fileID: 3821174329334479063}
-  - component: {fileID: 47371145}
-  - component: {fileID: 47371146}
-  - component: {fileID: 1524268162}
-  - component: {fileID: 1524268163}
+  - component: {fileID: 4864021056765269803}
+  - component: {fileID: 4864021056765269802}
+  - component: {fileID: 4864021056765269797}
+  - component: {fileID: 4864021056765269796}
+  - component: {fileID: 4864021055763766468}
+  - component: {fileID: 4864021056765269799}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: GameManager 1
   m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3821174329334479056
+--- !u!4 &4864021056765269803
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3821174329334479062}
+  m_GameObject: {fileID: 4864021056765269798}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.21229504, y: 0.16002852, z: -3.6573248}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,13 +35,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3821174329334479063
+--- !u!114 &4864021056765269802
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3821174329334479062}
+  m_GameObject: {fileID: 4864021056765269798}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 616219de7d706b04b9b913174501193f, type: 3}
@@ -54,33 +54,35 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fc6c475f001b8fd4093fe123a05ec48b, type: 3}
   - {fileID: 21300000, guid: 9f8c024ec0e1c8b4d9dec9e39f3509a0, type: 3}
   cellSize: 1.3
-  columns: 100
-  rows: 100
-  randomFillPercent: 47
+  columns: 30
+  rows: 30
+  wallSize: 8
+  randomFillPercent: 20
   smoothness: 5
   player: {fileID: 0}
-  enemyManager: {fileID: 47371146}
-  gridManager: {fileID: 47371145}
---- !u!114 &47371145
+  playerScore: 0
+  enemyManager: {fileID: 4864021056765269796}
+  gridManager: {fileID: 4864021056765269797}
+--- !u!114 &4864021056765269797
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3821174329334479062}
+  m_GameObject: {fileID: 4864021056765269798}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d4519001f7466d46aee0c1118e9964b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tiles: []
---- !u!114 &47371146
+--- !u!114 &4864021056765269796
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3821174329334479062}
+  m_GameObject: {fileID: 4864021056765269798}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b5117b293f27454d80f4ca8b6e7e758, type: 3}
@@ -90,34 +92,35 @@ MonoBehaviour:
   enemy: {fileID: 640727225253839702, guid: bd991e1ab30cc644c8352b1e8487431e, type: 3}
   enemyCount: 5
   deathAmount: 0
-  gameManager: {fileID: 3821174329334479063}
-  sceneManagement: {fileID: 1524268162}
+  gameManager: {fileID: 4864021056765269802}
   isReady: 0
---- !u!114 &1524268162
+  lastPos: 1
+--- !u!114 &4864021055763766468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3821174329334479062}
+  m_GameObject: {fileID: 4864021056765269798}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6950e7e21354cda4b856dd59d4d0755a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Level: 1
-  seedObject: {fileID: 1524268163}
+  seedObject: {fileID: 4864021056765269799}
   LevelName: Kim
-  gameManager: {fileID: 3821174329334479063}
---- !u!114 &1524268163
+  gameManager: {fileID: 4864021056765269802}
+--- !u!114 &4864021056765269799
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3821174329334479062}
+  m_GameObject: {fileID: 4864021056765269798}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b3ff1d4ad954f647925eb32367dd5d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seedString: 

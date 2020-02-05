@@ -126,7 +126,9 @@ MonoBehaviour:
   hp: 10
   damage: 5
   speed: 2
-  damageDelay: 2
+  enemyManager: {fileID: 0}
+  gameManager: {fileID: 0}
+  damageDelay: 0.5
   moveDelay: 1
   gridManager: {fileID: 0}
   pathfinding: {fileID: 0}
@@ -199,8 +201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d5af8185305ec4886cd7e62858c2ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seeker: {fileID: 1967908477006525529}
-  target: {fileID: 0}
   gameManager: {fileID: 0}
   walkableOnly: 1
   outOfBound: 0

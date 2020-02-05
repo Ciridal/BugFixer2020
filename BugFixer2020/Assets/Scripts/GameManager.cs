@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player");
         gridManager.CreateGrid(columns, rows, gridSprite, cellSize, randomFillPercent, seed, smoothness, wallSize);
-        player.GetComponent<Player>().SetGridPosition(50, 50, true, gridManager);
+        player.GetComponent<Player>().SetGridPosition(columns / 2, rows / 2, true, gridManager);
         enemyManager.Spawn(gridManager);
     }
     public int AddScore(int points)
@@ -57,6 +57,11 @@ public class GameManager : MonoBehaviour
     public int GetScore()
     {
         return playerScore;
+    }
+
+    public void DestroyEverything()
+    {
+        Destroy(this.gameObject);
     }
 }
 

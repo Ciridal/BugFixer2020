@@ -73,7 +73,7 @@ public class EnemyManager : MonoBehaviour
 
             newEnemy.GetComponent<Pathfinding>().DoPathFinding(newEnemy.transform, GameObject.FindGameObjectWithTag("Player").transform);
 
-            //DOES NOT WORK YET
+            //MIGHT WORK NOW MAYBE?
             if (_enemy.path == null)
             {
                 Debug.Log(i + " is out of bounds!");

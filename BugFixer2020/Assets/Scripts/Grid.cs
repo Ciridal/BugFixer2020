@@ -19,12 +19,12 @@ public class Grid : MonoBehaviour
 
     public void CreateGrid(int width, int height, Sprite[] gridSprite, float cellSize, int randomFillPercent, System.Random seed, int smoothness, int wallSize)
     {
-        this.width = width + wallSize;
-        this.height = height + wallSize;
+        this.width = width + (wallSize * 2);
+        this.height = height + (wallSize * 2);
         this.cellSize = cellSize;
         this.wallSize = wallSize;
 
-        gridArray = new int[width + wallSize , height + wallSize];
+        gridArray = new int[width + (wallSize * 2) , height + (wallSize * 2)];
         grid = new GameObject("Grid");
         nodes = new List<PathNode>();
         tiles = new List<GameObject>();

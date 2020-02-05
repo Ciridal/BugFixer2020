@@ -65,10 +65,14 @@ public class Enemy : MonoBehaviour
 
             if (player)
             {
-                if (this.currentNode == player.GetComponent<Player>().CurrentNode() && Time.time > lastHit + damageDelay)
+                if (this.currentNode == player.GetComponent<Player>().CurrentNode())
                 {
-                    DealDamage();
-                    lastHit = Time.time;
+                    pathfinding.StopPathFinding();
+                    if(Time.time > lastHit + damageDelay)
+                    {
+                        DealDamage();
+                        lastHit = Time.time;
+                    }
                 }
             }
         }
@@ -135,14 +139,14 @@ public class Enemy : MonoBehaviour
 
     private void Move()
     {
-        if(currentNode != path[path.Count - 1])
+        if (path.Count == 0 || currentNode == path[path.Count - 1])
+        {
+            pathfinding.StopPathFinding();
+        }
+        else if (currentNode != path[path.Count - 1])
         {
             nextNode = path[path.IndexOf(currentNode) + 1];
             MoveToNode(nextNode);
-        }
-        else if(currentNode == path[path.Count - 1])
-        {
-            pathfinding.StopPathFinding();
         }
         lastMoved = Time.time;
     }
