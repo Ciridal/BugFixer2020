@@ -54,6 +54,14 @@ public class EnemyManager : MonoBehaviour
                 newEnemy.SetActive(true);
             enemies.Add(newEnemy);
 
+            foreach(GameObject e in enemies)
+            {
+                if (grid == null)
+                    e.GetComponent<Enemy>().SetGrid(this.grid);
+                else
+                    e.GetComponent<Enemy>().SetGrid(grid);
+            }
+
             if (lastPos == 1)
             {
                 newEnemy.GetComponent<Enemy>().SetGridPosition(0, 0, true);
@@ -78,13 +86,6 @@ public class EnemyManager : MonoBehaviour
 
             if (newEnemy.GetComponent<Enemy>().outOfBounds)
 
-            foreach(GameObject e in enemies)
-            {
-                if (grid == null)
-                    e.GetComponent<Enemy>().SetGrid(this.grid);
-                else
-                    e.GetComponent<Enemy>().SetGrid(grid);
-            }
 
             newEnemy.GetComponent<Enemy>().SetGridPosition(gameManager.columns - 1, gameManager.rows -1, true);
             
