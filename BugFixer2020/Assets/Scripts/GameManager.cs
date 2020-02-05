@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public Sprite[] gridSprite;
     public float cellSize;
-    public int columns = 20;
+    public int columns = 10;
     public int rows = 10;
     
     [Range(0, 100)]
