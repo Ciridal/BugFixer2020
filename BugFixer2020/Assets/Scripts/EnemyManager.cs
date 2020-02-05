@@ -21,6 +21,9 @@ public class EnemyManager : MonoBehaviour
 
         if (sceneManagement == null)
             sceneManagement = this.GetComponent<SceneManagement>();
+
+        if (grid == null)
+            grid = this.GetComponent<Grid>();
     }
 
     void Update()
@@ -35,7 +38,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public void Spawn()
+    public void Spawn(Grid grid = null)
     {
         bool walkable = true;
 
@@ -45,6 +48,14 @@ public class EnemyManager : MonoBehaviour
             if(newEnemy.active == false)
                 newEnemy.SetActive(true);
             enemies.Add(newEnemy);
+
+            foreach(GameObject e in enemies)
+            {
+                if (grid == null)
+                    e.GetComponent<Enemy>().SetGrid(this.grid);
+                else
+                    e.GetComponent<Enemy>().SetGrid(grid);
+            }
 
             newEnemy.GetComponent<Enemy>().SetGridPosition(gameManager.columns - 1, gameManager.rows -1, walkable);
             

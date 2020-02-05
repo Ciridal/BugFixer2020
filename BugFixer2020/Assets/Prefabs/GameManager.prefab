@@ -11,8 +11,11 @@ GameObject:
   - component: {fileID: 3821174329334479056}
   - component: {fileID: 3821174329334479063}
   - component: {fileID: 47371145}
+  - component: {fileID: 47371146}
+  - component: {fileID: 1524268162}
+  - component: {fileID: 1524268163}
   m_Layer: 0
-  m_Name: GridManager
+  m_Name: GameManager
   m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +59,8 @@ MonoBehaviour:
   randomFillPercent: 47
   smoothness: 5
   player: {fileID: 0}
-  enemy: {fileID: 0}
+  enemyManager: {fileID: 47371146}
+  gridManager: {fileID: 47371145}
 --- !u!114 &47371145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,3 +74,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tiles: []
+--- !u!114 &47371146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3821174329334479062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5117b293f27454d80f4ca8b6e7e758, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: []
+  enemy: {fileID: 640727225253839702, guid: bd991e1ab30cc644c8352b1e8487431e, type: 3}
+  enemyCount: 5
+  deathAmount: 0
+  gameManager: {fileID: 3821174329334479063}
+  sceneManagement: {fileID: 1524268162}
+  isReady: 0
+--- !u!114 &1524268162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3821174329334479062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6950e7e21354cda4b856dd59d4d0755a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Level: 1
+  seedObject: {fileID: 1524268163}
+  LevelName: Kim
+  gameManager: {fileID: 3821174329334479063}
+--- !u!114 &1524268163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3821174329334479062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b3ff1d4ad954f647925eb32367dd5d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

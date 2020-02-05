@@ -7,6 +7,7 @@ public class DisplayScore : MonoBehaviour
 {
     Text text;
     GameObject player;
+    public GameManager gameManager;
     public int currentScore;
 
     private void Start()
@@ -14,12 +15,15 @@ public class DisplayScore : MonoBehaviour
         text = gameObject.GetComponent<Text>();
         player = GameObject.FindGameObjectWithTag("Player");
         text.text = "Score: " + currentScore;
+
+        if (gameManager == null)
+            gameManager = GameObject.FindObjectOfType<GameManager>();
     }
 
     private void Update()
     {
 
-        currentScore = player.GetComponent<Player>().GetScore();
+        currentScore = gameManager.GetScore();
         text.text = "Score: " + currentScore;
     }
 

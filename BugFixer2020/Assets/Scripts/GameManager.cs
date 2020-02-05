@@ -15,9 +15,10 @@ public class GameManager : MonoBehaviour
     public int smoothness = 5;
 
     public GameObject player;
-    //public GameObject enemy;
+    public int playerScore = 0;
 
     public EnemyManager enemyManager;
+    public Grid gridManager;
 
     //public Grid grid;
     private System.Random seed = null;
@@ -27,17 +28,34 @@ public class GameManager : MonoBehaviour
         var seedObject = GameObject.FindObjectOfType<Randomizer>();
         if(seedObject != null)
             seed = seedObject.seed;
-        this.GetComponent<Grid>().CreateGrid(columns, rows, gridSprite, cellSize, randomFillPercent, seed, smoothness);
-        player.GetComponent<Player>().SetGridPosition(50,50,true);
         if (enemyManager == null)
             enemyManager = this.GetComponent<EnemyManager>();
-        enemyManager.Spawn();
-        //enemy.GetComponent<Enemy>().SetGridPosition(true);
+        if (gridManager == null)
+            gridManager = this.GetComponent<Grid>();
     }
 
-    private void Update()
+    void Awake()
     {
-        
+        DontDestroyOnLoad(this.gameObject);
+    }
+
+    public void OnLevelLoad(string name)
+    {
+        if (player == null)
+            player = GameObject.FindGameObjectWithTag("Player");
+        gridManager.CreateGrid(columns, rows, gridSprite, cellSize, randomFillPercent, seed, smoothness);
+        player.GetComponent<Player>().SetGridPosition(50, 50, true, gridManager);
+        enemyManager.Spawn(gridManager);
+    }
+    public int AddScore(int points)
+    {
+        playerScore += points;
+        return playerScore;
+    }
+
+    public int GetScore()
+    {
+        return playerScore;
     }
 }
 
