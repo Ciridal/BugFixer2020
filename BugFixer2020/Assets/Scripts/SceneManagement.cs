@@ -39,6 +39,7 @@ public class SceneManagement : MonoBehaviour
 
     public void LoadMenu()
     {
+        gameManager.ResetEverything();
         SceneManager.LoadScene("Menu");
     }
 
@@ -61,6 +62,8 @@ public class SceneManagement : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+
+
         if(scene.name == LevelName)
         {
             Debug.Log(LevelName + " was loaded!");

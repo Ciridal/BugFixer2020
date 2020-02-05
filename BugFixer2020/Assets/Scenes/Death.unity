@@ -677,9 +677,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4864021056765269802, guid: 7a041a7097d99504b8444c5785a18036,
+      - m_Target: {fileID: 4864021055763766468, guid: 7a041a7097d99504b8444c5785a18036,
           type: 3}
-        m_MethodName: DestroyEverything
+        m_MethodName: LoadMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

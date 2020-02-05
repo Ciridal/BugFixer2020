@@ -59,10 +59,13 @@ public class GameManager : MonoBehaviour
         return playerScore;
     }
 
-    public void DestroyEverything()
+    public void ResetEverything()
     {
-        Destroy(this.gameObject);
+        playerScore = 0;
+        enemyManager.enemyCount = enemyManager.initialEnemyCount;
+        enemyManager.deathAmount = 0;
     }
+        
 }
 
     

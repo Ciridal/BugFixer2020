@@ -7,6 +7,7 @@ public class EnemyManager : MonoBehaviour
     public List<GameObject> enemies;
     public GameObject enemy;
     public int enemyCount = 5;
+    public int initialEnemyCount;
     public int deathAmount = 0;
     public GameManager gameManager;
     SceneManagement sceneManagement;
@@ -19,6 +20,8 @@ public class EnemyManager : MonoBehaviour
    
     void Start()
     {
+        initialEnemyCount = enemyCount;
+
         if (gameManager == null)
             gameManager = this.GetComponent<GameManager>();
 
