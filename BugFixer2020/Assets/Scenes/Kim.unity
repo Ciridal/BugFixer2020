@@ -337,10 +337,6 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 1845621331}
-    - target: {fileID: 1871698666, guid: ef005a930ee39e746b70c83482a8cbe6, type: 3}
-      propertyPath: GridManager
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6293789334697471616, guid: ef005a930ee39e746b70c83482a8cbe6,
         type: 3}
       propertyPath: m_Name

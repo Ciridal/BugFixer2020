@@ -122,4 +122,3 @@ MonoBehaviour:
     type: 3}
   bulletSpeed: 7
   fireDelay: 0.1
-  score: 0
