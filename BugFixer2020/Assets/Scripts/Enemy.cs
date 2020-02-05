@@ -118,7 +118,7 @@ public class Enemy : MonoBehaviour
     {
         if (walkable)
         {
-            PathNode nearest = gridManager.GetNode(x,y);
+            PathNode nearest = gridManager.FindNearestWalkable(gridManager.GetNode(x, y));
             MoveToNode(nearest);
         }
         else
