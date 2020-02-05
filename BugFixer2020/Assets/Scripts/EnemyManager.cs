@@ -15,7 +15,7 @@ public class EnemyManager : MonoBehaviour
 
     //(0,0) , (0, 99) , (99, 99), (99, 0)
 
-    int lastPos = 1;
+    public int lastPos = 1;
    
     void Start()
     {
@@ -43,58 +43,43 @@ public class EnemyManager : MonoBehaviour
 
     public void Spawn(Grid grid = null)
     {
+        if (grid != null)
+            this.grid = grid;
 
         for (int i = 0; i < enemyCount; i++)
         {
-            
-
             var newEnemy = Instantiate(enemy);
 
-            if (newEnemy.active == false)
+            if (newEnemy.activeSelf == false)
                 newEnemy.SetActive(true);
+            var _enemy = newEnemy.GetComponent<Enemy>();
+            _enemy.CorrectZPosition(newEnemy.transform.position);
             enemies.Add(newEnemy);
 
-            foreach(GameObject e in enemies)
-            {
-                if (grid == null)
-                    e.GetComponent<Enemy>().SetGrid(this.grid);
-                else
-                    e.GetComponent<Enemy>().SetGrid(grid);
-            }
-
-            if (lastPos == 1)
-            {
-                newEnemy.GetComponent<Enemy>().SetGridPosition(0, 0, true);
-                lastPos++;
-            }
-            else if (lastPos == 2)
-            {
-                newEnemy.GetComponent<Enemy>().SetGridPosition(0, gameManager.rows - 1, true);
-                lastPos++;
-            }
-            else if (lastPos == 3)
-            {
-                newEnemy.GetComponent<Enemy>().SetGridPosition(gameManager.columns - 1 ,gameManager.rows - 1 , true);
-                lastPos++;
-            }     
-            else if (lastPos >= 4)
-            {
-                newEnemy.GetComponent<Enemy>().SetGridPosition(gameManager.columns - 1, 0, true);
-                lastPos = 1;
-            }
-                
-
-            if (newEnemy.GetComponent<Enemy>().outOfBounds)
+            if (grid == null)
+                _enemy.SetGrid(this.grid);
+            else
+                _enemy.SetGrid(grid);
 
 
-            newEnemy.GetComponent<Enemy>().SetGridPosition(gameManager.columns - 1, gameManager.rows -1, true);
-            
-            if(newEnemy.GetComponent<Enemy>().outOfBounds)
+            if (i % 4 == 0 && i != 0)
+                _enemy.SetGridPosition(gameManager.columns - 1, 0, true);
+            else if (i % 2 == 0)
+                _enemy.SetGridPosition(0, 0, true);
+            else if (i % 3 == 0)
+                _enemy.SetGridPosition(0, gameManager.rows - 1, true);
+            else
+                _enemy.SetGridPosition(gameManager.columns - 1, gameManager.rows - 1, true);
 
+            newEnemy.GetComponent<Pathfinding>().DoPathFinding(newEnemy.transform, GameObject.FindGameObjectWithTag("Player").transform);
+
+            //DOES NOT WORK YET
+            if (_enemy.path == null)
             {
-                grid.MoveTowardsCentre(grid.FindNearestWalkable(transform.position));
+                Debug.Log(i + " is out of bounds!");
+                var newNode = grid.MoveTowardsCentre(grid.FindNearestWalkable(newEnemy.transform.position));
+                _enemy.SetGridPosition(newNode.gridX, newNode.gridY);
             }
-            
         }
         isReady = true;
     }

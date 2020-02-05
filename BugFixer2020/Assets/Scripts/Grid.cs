@@ -8,6 +8,7 @@ public class Grid : MonoBehaviour
 {  
     private int width;
     private int height;
+    private int wallSize;
     private int[,] gridArray;
     private float cellSize;
     private GameObject grid;
@@ -16,13 +17,14 @@ public class Grid : MonoBehaviour
     
     public List<PathNode> nodes;
 
-    public void CreateGrid(int width, int height, Sprite[] gridSprite, float cellSize, int randomFillPercent, System.Random seed, int smoothness)
+    public void CreateGrid(int width, int height, Sprite[] gridSprite, float cellSize, int randomFillPercent, System.Random seed, int smoothness, int wallSize)
     {
-        this.width = width;
-        this.height = height;
+        this.width = width + wallSize;
+        this.height = height + wallSize;
         this.cellSize = cellSize;
+        this.wallSize = wallSize;
 
-        gridArray = new int[width , height];
+        gridArray = new int[width + wallSize , height + wallSize];
         grid = new GameObject("Grid");
         nodes = new List<PathNode>();
         tiles = new List<GameObject>();
@@ -35,7 +37,7 @@ public class Grid : MonoBehaviour
             for (int y = 0; y < gridArray.GetLength(1); y++)
             {
                 //1 = wall, 0 = floor
-                if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
+                if (x == 0 || x == width - wallSize || y == 0 || y == height - wallSize)
                 {
                     gridArray[x, y] = 1;
                 }
@@ -70,7 +72,7 @@ public class Grid : MonoBehaviour
         {
             for(int neighbourY = gridY - 1; neighbourY <= gridY + 1; neighbourY++)
             {
-                if (neighbourX >= 0 && neighbourX < width && neighbourY >= 0 && neighbourY < height)
+                if (neighbourX >= 0 + wallSize && neighbourX < width - wallSize && neighbourY >= 0 + wallSize && neighbourY < height - wallSize)
                 {
                     if (neighbourX != gridX || neighbourY != gridY)
                     {
@@ -150,7 +152,7 @@ public class Grid : MonoBehaviour
             return FindNearestNode(position);
     }
 
-    private PathNode FindNearestNode(Vector3 position)
+    public PathNode FindNearestNode(Vector3 position)
     {
         PathNode node = null;
         float minDist = cellSize;
@@ -263,5 +265,15 @@ public class Grid : MonoBehaviour
     public float CellSize()
     {
         return cellSize;
+    }
+
+    public int GridHeight()
+    {
+        return height;
+    }
+
+    public int GridWidth()
+    {
+        return width;
     }
 }

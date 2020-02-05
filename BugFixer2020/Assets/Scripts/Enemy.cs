@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
         path = pathfinding.path;
         outOfBounds = pathfinding.outOfBound;
 
-        if (!outOfBounds)
+        if (!outOfBounds && enemyManager.isReady)
         {
             if (path != null && Time.time > lastMoved + moveDelay)
                 Move();
@@ -118,7 +118,7 @@ public class Enemy : MonoBehaviour
     {
         if (walkable)
         {
-            PathNode nearest = gridManager.FindNearestWalkable(gridManager.GetNodePosition(transform.position));
+            PathNode nearest = gridManager.GetNode(x,y);
             MoveToNode(nearest);
         }
         else
@@ -150,5 +150,10 @@ public class Enemy : MonoBehaviour
     public void SetGrid(Grid grid)
     {
         this.gridManager = grid;
+    }
+
+    public void CorrectZPosition(Vector3 position)
+    {
+        this.transform.position = new Vector3(position.x, position.y, -0.1f);
     }
 }

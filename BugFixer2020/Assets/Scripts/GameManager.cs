@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public float cellSize;
     public int columns = 10;
     public int rows = 10;
+    public int wallSize = 8;
     
     [Range(0, 100)]
     public int randomFillPercent;
@@ -43,7 +44,7 @@ public class GameManager : MonoBehaviour
     {
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player");
-        gridManager.CreateGrid(columns, rows, gridSprite, cellSize, randomFillPercent, seed, smoothness);
+        gridManager.CreateGrid(columns, rows, gridSprite, cellSize, randomFillPercent, seed, smoothness, wallSize);
         player.GetComponent<Player>().SetGridPosition(50, 50, true, gridManager);
         enemyManager.Spawn(gridManager);
     }
