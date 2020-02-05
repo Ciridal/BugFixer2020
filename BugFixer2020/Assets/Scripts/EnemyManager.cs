@@ -9,11 +9,14 @@ public class EnemyManager : MonoBehaviour
     public int enemyCount = 5;
     public int deathAmount = 0;
     public GameManager gameManager;
-    public SceneManagement sceneManagement;
+    SceneManagement sceneManagement;
     Grid grid;
-
     public bool isReady = false;
 
+    //(0,0) , (0, 99) , (99, 99), (99, 0)
+
+    int lastPos = 1;
+   
     void Start()
     {
         if (gameManager == null)
@@ -28,7 +31,7 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
-        if(deathAmount >= enemyCount)
+        if (deathAmount >= enemyCount)
         {
             if (sceneManagement != null)
                 sceneManagement.NextLevel("Kim");
@@ -40,14 +43,40 @@ public class EnemyManager : MonoBehaviour
 
     public void Spawn(Grid grid = null)
     {
-        bool walkable = true;
 
         for (int i = 0; i < enemyCount; i++)
         {
+            
+
             var newEnemy = Instantiate(enemy);
-            if(newEnemy.active == false)
+
+            if (newEnemy.active == false)
                 newEnemy.SetActive(true);
             enemies.Add(newEnemy);
+
+            if (lastPos == 1)
+            {
+                newEnemy.GetComponent<Enemy>().SetGridPosition(0, 0, true);
+                lastPos++;
+            }
+            else if (lastPos == 2)
+            {
+                newEnemy.GetComponent<Enemy>().SetGridPosition(0, gameManager.rows - 1, true);
+                lastPos++;
+            }
+            else if (lastPos == 3)
+            {
+                newEnemy.GetComponent<Enemy>().SetGridPosition(gameManager.columns - 1 ,gameManager.rows - 1 , true);
+                lastPos++;
+            }     
+            else if (lastPos >= 4)
+            {
+                newEnemy.GetComponent<Enemy>().SetGridPosition(gameManager.columns - 1, 0, true);
+                lastPos = 1;
+            }
+                
+
+            if (newEnemy.GetComponent<Enemy>().outOfBounds)
 
             foreach(GameObject e in enemies)
             {
@@ -57,21 +86,23 @@ public class EnemyManager : MonoBehaviour
                     e.GetComponent<Enemy>().SetGrid(grid);
             }
 
-            newEnemy.GetComponent<Enemy>().SetGridPosition(gameManager.columns - 1, gameManager.rows -1, walkable);
+            newEnemy.GetComponent<Enemy>().SetGridPosition(gameManager.columns - 1, gameManager.rows -1, true);
             
             if(newEnemy.GetComponent<Enemy>().outOfBounds)
+
             {
                 grid.MoveTowardsCentre(grid.FindNearestWalkable(transform.position));
             }
+            
         }
-
         isReady = true;
     }
 
     Vector3 RandomPosition()
     {
-        var randX = Random.Range(1, 50);
-        var randY = Random.Range(1, 50);
+        var randX = Random.Range(0, gameManager.columns - 1);
+        var randY = Random.Range(1, gameManager.rows - 1);
+
 
         Vector3 randPos = new Vector3(randX, randY, -0.1f);
 
@@ -82,4 +113,7 @@ public class EnemyManager : MonoBehaviour
     {
         deathAmount++;
     }
+
+   
+
 }

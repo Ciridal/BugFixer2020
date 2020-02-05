@@ -22,9 +22,12 @@ public class DisplayScore : MonoBehaviour
 
     private void Update()
     {
-
-        currentScore = gameManager.GetScore();
-        text.text = "Score: " + currentScore;
+        if(gameManager != null)
+        {
+            currentScore = gameManager.GetScore();
+            text.text = "Score: " + currentScore;
+        }
+        
     }
 
 
