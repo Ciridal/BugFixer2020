@@ -7,12 +7,7 @@ using UnityEngine.UI;
 public class Randomizer : MonoBehaviour
 {
     public System.Random seed;
-    private string seedString;
-
-    void Start()
-    {
-        //seed = Random.Range(0, input.GetHashCode());
-    }
+    public string seedString = "";
 
     void Awake()
     {
@@ -29,7 +24,6 @@ public class Randomizer : MonoBehaviour
     {
         seedString = obj.GetComponent<Text>().text;
         seed = new System.Random(seedString.GetHashCode());
-        Debug.Log(seedString);
     }
 
     public void IncreaseSeed(int level)

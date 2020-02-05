@@ -8,11 +8,15 @@ public class SceneManagement : MonoBehaviour
     public int Level = 1;
     public Randomizer seedObject;
     public string LevelName;
+    public GameManager gameManager;
 
-    void start()
+    void Start()
     {
         if (seedObject == null)
-            seedObject = GameObject.FindObjectOfType<Randomizer>();
+            seedObject = this.gameObject.GetComponent<Randomizer>();
+
+        if (gameManager == null)
+            gameManager = this.gameObject.GetComponent<GameManager>();
     }
 
     void Awake()
@@ -43,5 +47,24 @@ public class SceneManagement : MonoBehaviour
         Level++;
         seedObject.IncreaseSeed(Level);
         SceneManager.LoadScene(name);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(scene.name == LevelName)
+        {
+            Debug.Log(LevelName + " was loaded!");
+            gameManager.OnLevelLoad(name);
+        }
     }
 }

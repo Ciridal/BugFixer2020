@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public int damage;
     public float speed;
     public EnemyManager enemyManager;
+    public GameManager gameManager;
 
     //Time stuff
     public float damageDelay;
@@ -38,6 +39,10 @@ public class Enemy : MonoBehaviour
 
         if (pathfinding == null)
             pathfinding = this.gameObject.GetComponent<Pathfinding>();
+
+        if (gameManager == null)
+            gameManager = GameObject.FindObjectOfType<GameManager>();
+
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -83,7 +88,7 @@ public class Enemy : MonoBehaviour
 
     void Death()
     {
-        player.GetComponent<Player>().AddScore(1);
+        gameManager.AddScore(1);
         enemyManager.OnEnemyDeath();
         if (this.path != null)
             this.pathfinding.StopPathFinding();
@@ -113,8 +118,6 @@ public class Enemy : MonoBehaviour
     {
         if (walkable)
         {
-            Debug.Log("x: " + x + " y: " + y);
-            Debug.Log(gridManager.GetNode(x, y));
             PathNode nearest = gridManager.FindNearestWalkable(gridManager.GetNodePosition(transform.position));
             MoveToNode(nearest);
         }
@@ -142,5 +145,10 @@ public class Enemy : MonoBehaviour
             pathfinding.StopPathFinding();
         }
         lastMoved = Time.time;
+    }
+
+    public void SetGrid(Grid grid)
+    {
+        this.gridManager = grid;
     }
 }

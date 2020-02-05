@@ -9,12 +9,10 @@ public class Player : MonoBehaviour
     public GameObject camera;
     public Grid GridManager;
     public int hp;
-    //public Sprite bullet;
     public GameObject bulletPrefab;
     public float bulletSpeed;
     private float lastFire;
     public float fireDelay;
-    public int score;
 
     void Start()
     {
@@ -68,17 +66,6 @@ public class Player : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation) as GameObject;
         bullet.AddComponent<Rigidbody2D>().gravityScale = 0;
         bullet.GetComponent<Rigidbody2D>().velocity = new Vector3((x < 0) ? Mathf.Floor(x) * bulletSpeed : Mathf.Ceil(x) * bulletSpeed, (y < 0) ? Mathf.Floor(y) * bulletSpeed : Mathf.Ceil(y) * bulletSpeed);
-    }
-
-    public int AddScore(int points)
-    {
-        score += points;
-        return score;
-    }
-
-    public int GetScore()
-    {
-        return score;
     }
 
     public PathNode CurrentNode()
@@ -139,8 +126,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void SetGridPosition(int x, int y, bool walkable = false)
+    public void SetGridPosition(int x, int y, bool walkable = false, Grid grid = null)
     {
+        if (grid != null)
+            this.GridManager = grid;
+
         if(walkable)
         {
             PathNode nearest = GridManager.FindNearestWalkable(GridManager.GetNode(x,y));
@@ -156,5 +146,10 @@ public class Player : MonoBehaviour
     private void MoveToNode(PathNode node)
     {
         this.transform.position = new Vector3(node.WorldPosition().x, node.WorldPosition().y, this.transform.position.z);
+    }
+
+    public void SetGrid(Grid grid)
+    {
+        this.GridManager = grid;
     }
 }

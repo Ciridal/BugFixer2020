@@ -24,6 +24,9 @@ public class EnemyManager : MonoBehaviour
 
         if (sceneManagement == null)
             sceneManagement = this.GetComponent<SceneManagement>();
+
+        if (grid == null)
+            grid = this.GetComponent<Grid>();
     }
 
     void Update()
@@ -38,7 +41,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public void Spawn()
+    public void Spawn(Grid grid = null)
     {
 
         for (int i = 0; i < enemyCount; i++)
@@ -50,7 +53,6 @@ public class EnemyManager : MonoBehaviour
             if (newEnemy.active == false)
                 newEnemy.SetActive(true);
             enemies.Add(newEnemy);
-
 
             if (lastPos == 1)
             {
@@ -75,6 +77,19 @@ public class EnemyManager : MonoBehaviour
                 
 
             if (newEnemy.GetComponent<Enemy>().outOfBounds)
+
+            foreach(GameObject e in enemies)
+            {
+                if (grid == null)
+                    e.GetComponent<Enemy>().SetGrid(this.grid);
+                else
+                    e.GetComponent<Enemy>().SetGrid(grid);
+            }
+
+            newEnemy.GetComponent<Enemy>().SetGridPosition(gameManager.columns - 1, gameManager.rows -1, true);
+            
+            if(newEnemy.GetComponent<Enemy>().outOfBounds)
+
             {
                 grid.MoveTowardsCentre(grid.FindNearestWalkable(transform.position));
             }
