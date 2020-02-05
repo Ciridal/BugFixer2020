@@ -10,9 +10,6 @@
 /BugFixer2020/[Ll]ogs/
 /BugFixer2020/[Mm]emoryCaptures/
 
-# Asset meta data should only be ignored when the corresponding asset is also ignored
-!/BugFixer2020/[Aa]ssets/**/*.meta
-
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /BugFixer2020/[Aa]ssets/AssetStoreTools*
 
