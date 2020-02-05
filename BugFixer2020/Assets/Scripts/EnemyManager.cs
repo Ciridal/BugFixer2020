@@ -34,7 +34,7 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
-        if (deathAmount >= enemyCount)
+        if (sceneManagement.CurrentScene().name == "Kim" && enemies.Count <= 0)
         {
             if (sceneManagement != null)
                 sceneManagement.NextLevel("Kim");
@@ -98,11 +98,8 @@ public class EnemyManager : MonoBehaviour
         return randPos;
     }
 
-    public void OnEnemyDeath()
+    public void OnEnemyDeath(GameObject enemy)
     {
-        deathAmount++;
+        enemies.Remove(enemy);
     }
-
-   
-
 }

@@ -58,13 +58,6 @@ public class GameManager : MonoBehaviour
     {
         return playerScore;
     }
-
-    public void ResetEverything()
-    {
-        playerScore = 0;
-        enemyManager.enemyCount = enemyManager.initialEnemyCount;
-        enemyManager.deathAmount = 0;
-    }
         
 }
 

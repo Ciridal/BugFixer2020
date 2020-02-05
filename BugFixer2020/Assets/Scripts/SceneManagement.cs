@@ -24,14 +24,6 @@ public class SceneManagement : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    NextLevel(LevelName);
-        //}
-    }
-
     public void LoadScene(string name)
     {
         SceneManager.LoadScene(name);
@@ -39,7 +31,6 @@ public class SceneManagement : MonoBehaviour
 
     public void LoadMenu()
     {
-        gameManager.ResetEverything();
         SceneManager.LoadScene("Menu");
     }
 
@@ -62,12 +53,20 @@ public class SceneManagement : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-
+        if(scene.name == "Death")
+        {
+            SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
+        }
 
         if(scene.name == LevelName)
         {
             Debug.Log(LevelName + " was loaded!");
             gameManager.OnLevelLoad(name);
         }
+    }
+
+    public Scene CurrentScene()
+    {
+        return SceneManager.GetActiveScene();
     }
 }

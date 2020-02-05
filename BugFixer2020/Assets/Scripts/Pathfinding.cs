@@ -21,7 +21,7 @@ public class Pathfinding : MonoBehaviour
         grid = GameObject.FindObjectOfType<Grid>();
     }
 
-    public void DoPathFinding(Transform seeker, Transform target)
+    public List<PathNode> DoPathFinding(Transform seeker, Transform target)
     {
         if (this.path != null)
             outOfBound = false;
@@ -34,10 +34,12 @@ public class Pathfinding : MonoBehaviour
             EmptyPath(this.path);
 
         if (!this.outOfBound && (this.path == null || this.path.Count <= 0 || this.path.IndexOf(grid.GetNodePosition(target.position)) != this.path.Count - 1))
-            FindPath(seeker.position, target.position, walkableOnly);
+            this.path = FindPath(seeker.position, target.position, walkableOnly);
+
+        return this.path;
     }
     
-    private void FindPath(Vector3 startPos, Vector3 targetPos, bool onlyWalkable)
+    public List<PathNode> FindPath(Vector3 startPos, Vector3 targetPos, bool onlyWalkable)
     {
         if (grid == null)
             grid = FindObjectOfType<Grid>();
@@ -75,8 +77,7 @@ public class Pathfinding : MonoBehaviour
                 PathNode node = openSet[0];
                 if (node == targetNode)
                 {
-                    RetracePath(cameFrom, targetNode);
-                    return;
+                    return RetracePath(cameFrom, targetNode);
                 }
 
                 openSet.Remove(node);
@@ -102,9 +103,10 @@ public class Pathfinding : MonoBehaviour
             }
         }
         outOfBound = true;
+        return null;
     }
 
-    private void RetracePath(Dictionary<PathNode,PathNode> cameFrom, PathNode endNode)
+    List<PathNode> RetracePath(Dictionary<PathNode,PathNode> cameFrom, PathNode endNode)
     {
         List<PathNode> path = new List<PathNode>();
         PathNode currentNode = endNode;
@@ -129,7 +131,7 @@ public class Pathfinding : MonoBehaviour
             else
                 node.SetColour(Color.blue);
         }
-        this.path = path;
+        return path;
     }
 
     private int GetDistance(PathNode nodeA, PathNode nodeB)

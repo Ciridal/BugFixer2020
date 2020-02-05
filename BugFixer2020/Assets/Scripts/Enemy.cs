@@ -48,11 +48,9 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        pathfinding.DoPathFinding(this.transform, player.transform);
+        path = pathfinding.DoPathFinding(this.transform, player.transform);
 
         currentNode = CurrentNode();
-
-        path = pathfinding.path;
         outOfBounds = pathfinding.outOfBound;
 
         if (!outOfBounds && enemyManager.isReady)
@@ -93,7 +91,7 @@ public class Enemy : MonoBehaviour
     void Death()
     {
         gameManager.AddScore(1);
-        enemyManager.OnEnemyDeath();
+        enemyManager.OnEnemyDeath(this.gameObject);
         if (this.path != null)
             this.pathfinding.StopPathFinding();
         Destroy(gameObject);
