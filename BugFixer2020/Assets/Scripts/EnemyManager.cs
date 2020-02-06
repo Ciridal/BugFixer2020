@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
@@ -75,6 +76,12 @@ public class EnemyManager : MonoBehaviour
             else
                 _enemy.SetGridPosition(gameManager.columns - 1, gameManager.rows - 1, true);
 
+            if (enemies.Where(e => e.GetComponent<Enemy>().CurrentNode() == _enemy.CurrentNode()/* && e != newEnemy*/).ToList().Count() > 0)
+            {
+                _enemy.GetComponent<Enemy>().MoveToNode(RandomPosition());
+                Debug.Log("Node Randomized");
+            }
+
             newEnemy.GetComponent<Pathfinding>().DoPathFinding(newEnemy.transform, GameObject.FindGameObjectWithTag("Player").transform);
 
             //MIGHT WORK NOW MAYBE?
@@ -90,13 +97,13 @@ public class EnemyManager : MonoBehaviour
         isReady = true;
     }
 
-    Vector3 RandomPosition()
+    PathNode RandomPosition()
     {
         var randX = Random.Range(0, gameManager.columns - 1);
-        var randY = Random.Range(1, gameManager.rows - 1);
+        var randY = Random.Range(0, gameManager.rows - 1);
 
 
-        Vector3 randPos = new Vector3(randX, randY, -0.1f);
+        PathNode randPos = grid.GetNode(randX, randY);
 
         return randPos;
     }
