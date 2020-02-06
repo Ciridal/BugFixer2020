@@ -130,7 +130,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void MoveToNode(PathNode node)
+    public void MoveToNode(PathNode node)
     {
         this.transform.position = new Vector3(node.WorldPosition().x, node.WorldPosition().y, this.transform.position.z);
     }
