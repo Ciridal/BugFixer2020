@@ -1058,6 +1058,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4864021056765269796, guid: 7a041a7097d99504b8444c5785a18036,
+        type: 3}
+      propertyPath: minDistanceToPlayer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4864021056765269798, guid: 7a041a7097d99504b8444c5785a18036,
         type: 3}
       propertyPath: m_Name
@@ -1065,18 +1070,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4864021056765269802, guid: 7a041a7097d99504b8444c5785a18036,
         type: 3}
+      propertyPath: randomFillPercent
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864021056765269802, guid: 7a041a7097d99504b8444c5785a18036,
+        type: 3}
       propertyPath: columns
-      value: 60
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4864021056765269802, guid: 7a041a7097d99504b8444c5785a18036,
         type: 3}
       propertyPath: rows
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 4864021056765269802, guid: 7a041a7097d99504b8444c5785a18036,
-        type: 3}
-      propertyPath: randomFillPercent
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4864021056765269803, guid: 7a041a7097d99504b8444c5785a18036,
         type: 3}

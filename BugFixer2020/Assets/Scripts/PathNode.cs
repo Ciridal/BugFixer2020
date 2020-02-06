@@ -7,6 +7,7 @@ public class PathNode
     public GameObject tile;
     public int gridX, gridY;
     public bool walkable;
+    public bool inhabited;
 
     public PathNode(GameObject tile, int x, int y, bool _walkable)
     {

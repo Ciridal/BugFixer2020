@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -15,7 +16,6 @@ public class Enemy : MonoBehaviour
     public float moveDelay;
 
     private GameObject player;
-    private float dist;
     private float lastHit;
     private float lastMoved;
 
@@ -25,7 +25,6 @@ public class Enemy : MonoBehaviour
     public List<PathNode> path;
     public bool outOfBounds;
 
-    private List<PathNode> remainingPath;
     private PathNode currentNode;
     private PathNode nextNode;
 
@@ -48,9 +47,11 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        path = pathfinding.DoPathFinding(this.transform, player.transform);
+        if(path == null || path.IndexOf(player.GetComponent<Player>().CurrentNode()) < 0)
+            path = pathfinding.DoPathFinding(this.transform, player.transform);
 
         currentNode = CurrentNode();
+        currentNode.inhabited = true;
         outOfBounds = pathfinding.outOfBound;
 
         if (!outOfBounds && enemyManager.isReady)
@@ -132,6 +133,8 @@ public class Enemy : MonoBehaviour
 
     public void MoveToNode(PathNode node)
     {
+        if(currentNode != null)
+            currentNode.inhabited = false;
         this.transform.position = new Vector3(node.WorldPosition().x, node.WorldPosition().y, this.transform.position.z);
     }
 

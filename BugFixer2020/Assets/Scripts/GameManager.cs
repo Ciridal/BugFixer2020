@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 
     public EnemyManager enemyManager;
     public Grid gridManager;
+    public GameObject loadingScreen;
 
     //public Grid grid;
     private System.Random seed = null;
@@ -40,10 +41,17 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    private void Update()
+    {
+        if (enemyManager.isReady && loadingScreen.activeSelf)
+            loadingScreen.SetActive(false);
+    }
+
     public void OnLevelLoad(string name)
     {
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player");
+        loadingScreen.SetActive(true);
         gridManager.CreateGrid(columns, rows, gridSprite, cellSize, randomFillPercent, seed, smoothness, wallSize);
         player.GetComponent<Player>().SetGridPosition(columns / 2, rows / 2, true, gridManager);
         enemyManager.Spawn(gridManager);

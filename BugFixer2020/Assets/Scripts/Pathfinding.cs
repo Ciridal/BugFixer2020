@@ -21,6 +21,12 @@ public class Pathfinding : MonoBehaviour
         grid = GameObject.FindObjectOfType<Grid>();
     }
 
+    private void Update()
+    {
+        //EmptyPath(this.path);
+        //DrawPath(this.path);
+    }
+
     public List<PathNode> DoPathFinding(Transform seeker, Transform target)
     {
         if (this.path != null)
@@ -43,6 +49,9 @@ public class Pathfinding : MonoBehaviour
     {
         if (grid == null)
             grid = FindObjectOfType<Grid>();
+
+        if (this.path != null)
+            EmptyPath(this.path);
 
         PathNode startNode = grid.GetNodePosition(startPos);
         PathNode targetNode = grid.GetNodePosition(targetPos);
@@ -119,18 +128,8 @@ public class Pathfinding : MonoBehaviour
         }
 
         path.Reverse();
-
-        foreach(var node in path)
-        {
-            //Startnode
-            if (path.IndexOf(node) == 0)
-                node.SetColour(Color.green);
-            //Targetnode
-            else if (path.IndexOf(node) == path.Count - 1)
-                node.SetColour(Color.red);
-            else
-                node.SetColour(Color.blue);
-        }
+        DrawPath(path);
+        outOfBound = false;
         return path;
     }
 
@@ -155,5 +154,20 @@ public class Pathfinding : MonoBehaviour
     public void StopPathFinding()
     {
         EmptyPath(this.path);
+    }
+
+    public void DrawPath(List<PathNode> path)
+    {
+        foreach (var node in path)
+        {
+            //Startnode
+            if (path.IndexOf(node) == 0)
+                node.SetColour(Color.green);
+            //Targetnode
+            else if (path.IndexOf(node) == path.Count - 1)
+                node.SetColour(Color.red);
+            else
+                node.SetColour(Color.blue);
+        }
     }
 }

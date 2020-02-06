@@ -209,33 +209,16 @@ public class Grid : MonoBehaviour
 
     public PathNode FindNearestWalkable(PathNode pathNode)
     {
-        PathNode node = null;
-        float minDist = Mathf.Infinity;
-        //Get list of nearest nodes
-        List<PathNode> walkables = nodes.Where(n => n.walkable == true).ToList();
-
-        //Calculate the nearest
-        if (walkables.Count >= 1)
-        {
-            foreach (PathNode n in walkables)
-            {
-                float dist = Vector3.Distance(n.tile.transform.position, pathNode.tile.transform.position);
-                if (dist < minDist)
-                {
-                    node = n;
-                    minDist = dist;
-                }
-            }
-            return node;
-        }
-
-        //No nodes available (probably out of bounds)
-        return null;
+        return FindNearestWalkable(pathNode.tile.transform.position);
     }
 
-    //Moves one step towards the centre of the grid
-    //DOES NOT WORK IF NODE IS ALREADY AT THE CENTRE
-    public PathNode MoveTowardsCentre(PathNode node)
+    public PathNode FindNearestWalkable(int x, int y)
+    {
+        var position = new Vector3(x * cellSize, y * cellSize);
+        return FindNearestWalkable(position);
+    }
+
+    public PathNode MoveTowardsCentre(PathNode node, bool onlyWalkables = false)
     {
         int x = node.gridX;
         int y = node.gridY;
@@ -245,21 +228,55 @@ public class Grid : MonoBehaviour
         int distX = x - centreX;
         int distY = y - centreY;
 
-        if (distX < 0)
-            x++;
-        else
-            x--;
+        int dist = (Mathf.Abs(distX) + Mathf.Abs(distY)) / 2;
 
-        if (distY < 0)
-            y++;
+        if (onlyWalkables)
+        {
+            for(int i = 0; i < distX + distY / 2; i++)
+            {
+                if (distX < 0)
+                    x++;
+                else
+                    x--;
+
+                if (distY < 0)
+                    y++;
+                else
+                    y--;
+
+                if (GetNode(x, y).walkable)
+                    return GetNode(x, y);
+            }
+            return FindNearestWalkable(GetNode(x, y));
+        }
+
         else
-            y--;
-        return GetNode(x, y);
+        {
+            if (distX < 0)
+                x++;
+            else
+                x--;
+
+            if (distY < 0)
+                y++;
+            else
+                y--;
+            return GetNode(x, y);
+        }
+        return null;
     }
 
     public PathNode GetNode(int x, int y)
     {
         return nodes.Find(n => n.gridX == x && n.gridY == y);
+    }
+
+    public PathNode GetWalkableNode(int x, int y)
+    {
+        var node = nodes.Find(n => n.gridX == x && n.gridY == y && n.walkable);
+        if (node == null)
+            return FindNearestWalkable(x,y);
+        return node;
     }
 
     public float CellSize()

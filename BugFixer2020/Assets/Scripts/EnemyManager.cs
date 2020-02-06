@@ -16,9 +16,12 @@ public class EnemyManager : MonoBehaviour
     Grid grid;
     public bool isReady = false;
 
-    //(0,0) , (0, 99) , (99, 99), (99, 0)
+    [Range(0,100)]
+    public int minDistanceToPlayer = 0;
 
-    public int lastPos = 1;
+    //(0,0) , (0, 99) , (99, 99), (99, 0)
+    private int realColumns;
+    private int realRows;
    
     void Start()
     {
@@ -32,6 +35,9 @@ public class EnemyManager : MonoBehaviour
 
         if (grid == null)
             grid = this.GetComponent<Grid>();
+
+        realColumns = gameManager.columns + (2 * gameManager.wallSize);
+        realRows = gameManager.rows + (2 * gameManager.wallSize);
     }
 
     void Update()
@@ -51,6 +57,11 @@ public class EnemyManager : MonoBehaviour
         if (grid != null)
             this.grid = grid;
 
+        StartCoroutine("SpawnEnemies");
+    }
+
+    private IEnumerator SpawnEnemies()
+    {
         for (int i = 0; i < enemyCount; i++)
         {
             var newEnemy = Instantiate(enemy);
@@ -67,43 +78,40 @@ public class EnemyManager : MonoBehaviour
                 _enemy.SetGrid(grid);
 
 
-            if (i % 4 == 0 && i != 0)
-                _enemy.SetGridPosition(gameManager.columns - 1, 0, true);
-            else if (i % 2 == 0)
-                _enemy.SetGridPosition(0, 0, true);
-            else if (i % 3 == 0)
-                _enemy.SetGridPosition(0, gameManager.rows - 1, true);
-            else
-                _enemy.SetGridPosition(gameManager.columns - 1, gameManager.rows - 1, true);
+            //if (i % 4 == 0 && i != 0)
+            //    _enemy.SetGridPosition(realColumns - 1, 0, true);
+            //else if (i % 2 == 0)
+            //    _enemy.SetGridPosition(0, 0, true);
+            //else if (i % 3 == 0)
+            //    _enemy.SetGridPosition(0, realRows - 1, true);
+            //else
+            //    _enemy.SetGridPosition(realColumns - 1, realRows - 1, true);
 
-            if (enemies.Where(e => e.GetComponent<Enemy>().CurrentNode() == _enemy.CurrentNode()/* && e != newEnemy*/).ToList().Count() > 0)
-            {
-                _enemy.GetComponent<Enemy>().MoveToNode(RandomPosition());
-                Debug.Log("Node Randomized");
-            }
-
-            newEnemy.GetComponent<Pathfinding>().DoPathFinding(newEnemy.transform, GameObject.FindGameObjectWithTag("Player").transform);
-
-            //MIGHT WORK NOW MAYBE?
             if (player == null)
                 player = GameObject.FindGameObjectWithTag("Player");
-            if (newEnemy.GetComponent<Pathfinding>().FindPath(newEnemy.transform.position, player.transform.position, true) == null)
-            {
-                Debug.Log(i + " is out of bounds!");
-                var newNode = grid.MoveTowardsCentre(grid.FindNearestWalkable(newEnemy.transform.position));
-                _enemy.SetGridPosition(newNode.gridX, newNode.gridY);
-            }
+            var newPath = newEnemy.GetComponent<Pathfinding>().FindPath(newEnemy.transform.position, player.transform.position, true);
+
+            //Cancerous fix
+            if (newPath == null)
+                for (int j = 0; j < 30; j++)
+                {
+                    if (newPath == null || _enemy.CurrentNode().inhabited || Vector3.Distance(_enemy.CurrentNode().tile.transform.position, player.transform.position) < minDistanceToPlayer)
+                    {
+                        _enemy.MoveToNode(RandomPosition());
+                        newPath = newEnemy.GetComponent<Pathfinding>().FindPath(newEnemy.transform.position, player.transform.position, true);
+                    }
+                }
         }
         isReady = true;
+        yield return null;
     }
 
     PathNode RandomPosition()
     {
-        var randX = Random.Range(0, gameManager.columns - 1);
-        var randY = Random.Range(0, gameManager.rows - 1);
+        var randX = Random.Range(0, realColumns - 1);
+        var randY = Random.Range(0, realRows - 1);
 
-
-        PathNode randPos = grid.GetNode(randX, randY);
+        PathNode randPos = grid.GetWalkableNode(randX, randY);
 
         return randPos;
     }
