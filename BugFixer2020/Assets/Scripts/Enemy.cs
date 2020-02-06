@@ -147,7 +147,8 @@ public class Enemy : MonoBehaviour
         else if (currentNode != path[path.Count - 1])
         {
             nextNode = path[path.IndexOf(currentNode) + 1];
-            MoveToNode(nextNode);
+            if(!nextNode.inhabited)
+                MoveToNode(nextNode);
         }
         lastMoved = Time.time;
     }
