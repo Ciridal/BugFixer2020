@@ -14,10 +14,7 @@ public class Player : MonoBehaviour
     private float lastFire;
     public float fireDelay;
 
-    void Start()
-    {
-
-    }
+    private PathNode currentNode;
     
     void Update()
     {

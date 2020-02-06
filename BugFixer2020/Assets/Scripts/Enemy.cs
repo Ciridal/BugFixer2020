@@ -51,7 +51,10 @@ public class Enemy : MonoBehaviour
             path = pathfinding.DoPathFinding(this.transform, player.transform);
 
         currentNode = CurrentNode();
-        currentNode.inhabited = true;
+        //if (currentNode != null && currentNode != player.GetComponent<Player>().CurrentNode())
+        //    currentNode.inhabited = true;
+        //else if (currentNode == player.GetComponent<Player>().CurrentNode())
+        //    currentNode.inhabited = false;
         outOfBounds = pathfinding.outOfBound;
 
         if (hp <= 0)
