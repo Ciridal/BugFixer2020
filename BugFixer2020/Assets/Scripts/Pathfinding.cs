@@ -8,6 +8,7 @@ public class Pathfinding : MonoBehaviour
     private Grid grid;
     //public Transform seeker, target;
     public GameObject gameManager;
+    public EnemyManager enemyManager;
     public List<PathNode> path;
     public bool walkableOnly = true;
 
@@ -18,6 +19,8 @@ public class Pathfinding : MonoBehaviour
     {
         if (gameManager == null)
             gameManager = GameObject.FindGameObjectWithTag("GameManager");
+        if (enemyManager == null)
+            enemyManager = GameObject.FindObjectOfType<EnemyManager>();
         grid = GameObject.FindObjectOfType<Grid>();
     }
 
@@ -128,7 +131,12 @@ public class Pathfinding : MonoBehaviour
         }
 
         path.Reverse();
-        DrawPath(path);
+
+        if (enemyManager == null)
+            enemyManager = GameObject.FindObjectOfType<EnemyManager>();
+        if (enemyManager.isReady)
+            DrawPath(path);
+
         outOfBound = false;
         return path;
     }
