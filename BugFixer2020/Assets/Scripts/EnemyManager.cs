@@ -6,6 +6,7 @@ public class EnemyManager : MonoBehaviour
 {
     public List<GameObject> enemies;
     public GameObject enemy;
+    public GameObject player;
     public int enemyCount = 5;
     public int initialEnemyCount;
     public int deathAmount = 0;
@@ -77,7 +78,9 @@ public class EnemyManager : MonoBehaviour
             newEnemy.GetComponent<Pathfinding>().DoPathFinding(newEnemy.transform, GameObject.FindGameObjectWithTag("Player").transform);
 
             //MIGHT WORK NOW MAYBE?
-            if (_enemy.path == null)
+            if (player == null)
+                player = GameObject.FindGameObjectWithTag("Player");
+            if (newEnemy.GetComponent<Pathfinding>().FindPath(newEnemy.transform.position, player.transform.position, true) == null)
             {
                 Debug.Log(i + " is out of bounds!");
                 var newNode = grid.MoveTowardsCentre(grid.FindNearestWalkable(newEnemy.transform.position));

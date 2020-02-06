@@ -1063,6 +1063,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4864021056765269802, guid: 7a041a7097d99504b8444c5785a18036,
+        type: 3}
+      propertyPath: columns
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864021056765269802, guid: 7a041a7097d99504b8444c5785a18036,
+        type: 3}
+      propertyPath: rows
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864021056765269802, guid: 7a041a7097d99504b8444c5785a18036,
+        type: 3}
+      propertyPath: randomFillPercent
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4864021056765269803, guid: 7a041a7097d99504b8444c5785a18036,
         type: 3}
       propertyPath: m_LocalPosition.x
