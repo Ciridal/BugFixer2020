@@ -54,26 +54,26 @@ public class Enemy : MonoBehaviour
         currentNode.inhabited = true;
         outOfBounds = pathfinding.outOfBound;
 
+        if (hp <= 0)
+            Death();
+
+        if (player)
+        {
+            if (this.currentNode != null && this.currentNode == player.GetComponent<Player>().CurrentNode())
+            {
+                pathfinding.StopPathFinding();
+                if (Time.time > lastHit + damageDelay)
+                {
+                    DealDamage();
+                    lastHit = Time.time;
+                }
+            }
+        }
+
         if (!outOfBounds && enemyManager.isReady)
         {
             if (path != null && Time.time > lastMoved + moveDelay)
                 Move();
-
-            if (hp <= 0)
-                Death();
-
-            if (player)
-            {
-                if (this.currentNode == player.GetComponent<Player>().CurrentNode())
-                {
-                    pathfinding.StopPathFinding();
-                    if(Time.time > lastHit + damageDelay)
-                    {
-                        DealDamage();
-                        lastHit = Time.time;
-                    }
-                }
-            }
         }
     }
 
