@@ -151,8 +151,14 @@ public class Pathfinding : MonoBehaviour
     {
         if(path != null)
         {
+            if (enemyManager == null)
+                enemyManager = GameObject.FindObjectOfType<EnemyManager>();
+            var paths = enemyManager.Paths();
+
             foreach (PathNode node in path)
             {
+                //Does not work, drawing should be in enemy manager / controller
+                //if(paths.Find(p => p.IndexOf(node) > 0) != null && paths.Where(p => p.IndexOf(node) > 0).ToList().Count <= 1)
                 node.ResetColour();
             }
         }

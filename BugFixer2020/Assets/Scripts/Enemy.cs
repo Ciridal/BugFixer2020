@@ -95,6 +95,7 @@ public class Enemy : MonoBehaviour
         enemyManager.OnEnemyDeath(this.gameObject);
         if (this.path != null)
             this.pathfinding.StopPathFinding();
+        CurrentNode().inhabited = false;
         Destroy(gameObject);
     }
     public PathNode CurrentNode()

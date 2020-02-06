@@ -120,4 +120,14 @@ public class EnemyManager : MonoBehaviour
     {
         enemies.Remove(enemy);
     }
+
+    public List<List<PathNode>> Paths()
+    {
+        var paths = new List<List<PathNode>>();
+        foreach(GameObject e in enemies)
+        {
+            paths.Add(e.GetComponent<Pathfinding>().path);
+        }
+        return paths;
+    }
 }
