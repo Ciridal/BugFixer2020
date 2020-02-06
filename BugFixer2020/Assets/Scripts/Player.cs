@@ -142,6 +142,7 @@ public class Player : MonoBehaviour
 
     private void MoveToNode(PathNode node)
     {
+        node.inhabited = false;
         this.transform.position = new Vector3(node.WorldPosition().x, node.WorldPosition().y, this.transform.position.z);
     }
 
