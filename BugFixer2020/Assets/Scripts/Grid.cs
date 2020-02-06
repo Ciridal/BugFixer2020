@@ -126,7 +126,7 @@ public class Grid : MonoBehaviour
 
     public List<PathNode> GetWalkableNeighbours(PathNode node)
     {
-        return GetNeighbours(node).Where(n => n.walkable).ToList();
+        return GetNeighbours(node).Where(n => n.walkable && n.inhabited == false).ToList();
     }
 
     public Vector3 GetWorldPosition(int x, int y)
